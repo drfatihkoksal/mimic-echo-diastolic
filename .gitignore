@@ -1,0 +1,28 @@
+# ── PhysioNet kimlik doğrulamalı veri — ASLA commit edilmez ────────────────────
+# MIMIC-IV-ECHO/MIMIC-IV veri kullanım sözleşmesi, veriyi ve ondan türetilen
+# hasta düzeyindeki veriyi yeniden dağıtmayı yasaklar. Aşağıdaki kalıplar bunu
+# kazara yapmayı yapısal olarak engeller.
+*.csv
+*.npz
+*.dcm
+*.pt
+*.pth
+*.tif
+*.tiff
+*.jpg
+*.jpeg
+*.png
+*.pdf
+*.log
+labels/
+splits/
+runs/
+figures/
+npz*/
+mimic*/
+data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

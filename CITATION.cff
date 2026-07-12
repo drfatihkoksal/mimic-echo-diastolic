@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: Doppler-free diastolic grading on MIMIC-IV-ECHO
+message: If you use this code, please cite the accompanying article.
+authors:
+  - family-names: Köksal
+    given-names: Fatih
+    orcid: https://orcid.org/0000-0002-4197-4683
+    affiliation: >-
+      Department of Cardiology, University of Health Sciences,
+      Bursa Yüksek İhtisas Training and Research Hospital, Bursa, Türkiye
+license: MIT
+repository-code: https://github.com/drfatihkoksal/mimic-echo-diastolic
