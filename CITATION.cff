@@ -4,6 +4,14 @@ message: If you use this code, please cite it using the metadata below, together
 type: software
 version: 2.0.0
 date-released: 2026-09-27
+doi: 10.5281/zenodo.22994945
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.22994945
+    description: Archived release v2.0.0
+  - type: doi
+    value: 10.5281/zenodo.22994944
+    description: All versions (concept DOI)
 authors:
   - family-names: Köksal
     given-names: Fatih
