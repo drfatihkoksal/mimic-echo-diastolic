@@ -1,5 +1,7 @@
 # Doppler-free triage for elevated left ventricular filling pressure
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22994945.svg)](https://doi.org/10.5281/zenodo.22994945)
+
 Code for estimating **elevated left atrial pressure from B-mode echocardiographic video alone — no Doppler
 at inference** — developed on the public MIMIC-IV-ECHO dataset and validated, without adaptation, on the
 independent public EchoXFlow dataset (Akershus University Hospital, Norway).
@@ -112,6 +114,7 @@ described in the Methods of the manuscript.
 
 ## Citation
 
+Archived release v2.0.0: https://doi.org/10.5281/zenodo.22994945 (all versions: https://doi.org/10.5281/zenodo.22994944).
 See `CITATION.cff`. Please also cite MIMIC-IV-ECHO, MIMIC-IV, PhysioNet and EchoXFlow.
 
 ## Licence
