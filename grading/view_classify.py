@@ -145,7 +145,9 @@ def main():
     for fp in files:
         try:
             z = np.load(fp, allow_pickle=True)
-            frames = z['frames']; study_id = str(z['study_id'])
+            frames = z['frames']
+            # MIMIC npz'lerinde study_id, EchoXFlow render'ında exam_id
+            study_id = str(z['study_id']) if 'study_id' in z.files else str(z['exam_id'])
         except Exception:
             continue
         dicom_id = os.path.basename(fp).replace('.npz', '')

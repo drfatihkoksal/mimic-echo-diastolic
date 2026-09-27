@@ -103,19 +103,53 @@ def _augment_clip(x, rot_deg=10, trans=0.06, scale=0.1, bc=0.2, gamma=0.2):
     return xt.permute(1, 0, 2, 3).contiguous()               # (3,T,H,W)
 
 
+_VIEW_IDX = None
+
+
+def _view_index():
+    """dicom_id -> görünüm. npz'leri açmak yerine Faz A sınıflandırma CSV'sinden okunur
+    (67 bin dosyada dizin kurulumunu dakikalardan saniyeye indirir)."""
+    global _VIEW_IDX
+    if _VIEW_IDX is None:
+        _VIEW_IDX = {}
+        vp = os.path.join(os.path.dirname(DEFAULT_HIRES), 'npz', '_views.csv')
+        if os.path.exists(vp):
+            with open(vp, newline='') as f:
+                for r in csv.DictReader(f):
+                    _VIEW_IDX[r['dicom_id']] = r['pred_view']
+    return _VIEW_IDX
+
+
+def _view_of(fp):
+    v = _view_index().get(os.path.basename(fp)[:-4])
+    if v is None:                                   # son çare: npz'den oku
+        try:
+            v = str(np.load(fp, allow_pickle=True)['view'])
+        except Exception:
+            return None
+    return {'Parasternal_Short': 'PSAX'}.get(v, v)
+
+
 class EchoClipDataset(Dataset):
     def __init__(self, split, clip_len=16, train=False, aux_stats=None, single_frame=False,
-                 splits_csv=DEFAULT_SPLITS, manifest_csv=DEFAULT_MANIFEST, hires_dir=DEFAULT_HIRES):
+                 splits_csv=DEFAULT_SPLITS, manifest_csv=DEFAULT_MANIFEST, hires_dir=DEFAULT_HIRES,
+                 extra_dirs=(), views=None):
+        """views: None = dizindeki her klip; aksi halde tutulacak görünüm adları kümesi
+        (ör. {'A4C','A2C','PLAX'}). extra_dirs: ek görünüm klipleri için ilave dizinler."""
         self.clip_len = clip_len; self.train = train; self.single_frame = single_frame
         self.meta = _load_study_meta(splits_csv, manifest_csv, split)
         if aux_stats is None:
             aux_stats = compute_aux_stats(splits_csv, manifest_csv)
         self.aux_mean, self.aux_std = aux_stats
-        # klip indeksi: bu split'teki study'lerin tüm npz'leri
+        # klip indeksi: bu split'teki study'lerin tüm npz'leri (ana dizin + ek dizinler)
         self.items = []
-        for fp in sorted(glob.glob(os.path.join(hires_dir, '*.npz'))):
-            sid = os.path.basename(fp).split('_')[0]
-            if sid in self.meta:
+        for d in (hires_dir,) + tuple(extra_dirs):
+            for fp in sorted(glob.glob(os.path.join(d, '*.npz'))):
+                sid = os.path.basename(fp).split('_')[0]
+                if sid not in self.meta:
+                    continue
+                if views is not None and _view_of(fp) not in views:
+                    continue
                 self.items.append((fp, sid))
 
     def __len__(self):

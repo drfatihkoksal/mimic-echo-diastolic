@@ -1,6 +1,9 @@
 cff-version: 1.2.0
-title: Doppler-free diastolic grading on MIMIC-IV-ECHO
-message: If you use this code, please cite the accompanying article.
+title: "Doppler-free triage for elevated left ventricular filling pressure from B-mode echocardiographic video"
+message: If you use this code, please cite it using the metadata below, together with the accompanying article.
+type: software
+version: 2.0.0
+date-released: 2026-09-27
 authors:
   - family-names: Köksal
     given-names: Fatih
@@ -10,3 +13,11 @@ authors:
       Bursa Yüksek İhtisas Training and Research Hospital, Bursa, Türkiye
 license: MIT
 repository-code: https://github.com/drfatihkoksal/mimic-echo-diastolic
+keywords:
+  - echocardiography
+  - left atrial pressure
+  - diastolic function
+  - deep learning
+  - external validation
+  - MIMIC-IV-ECHO
+  - EchoXFlow

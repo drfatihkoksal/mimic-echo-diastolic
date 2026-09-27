@@ -1,0 +1,252 @@
+{
+ "iç test — ASE LAP": {
+  "n": 438,
+  "prevalans": 0.1941,
+  "brier_ham": 0.1462,
+  "brier_kalibre": 0.097,
+  "beceri": 0.3797,
+  "egim": 1.123,
+  "egim_ga": [
+   0.902,
+   1.417
+  ],
+  "kesisim": 0.02,
+  "kesisim_ga": [
+   -0.267,
+   0.286
+  ],
+  "ortalama_fark": 0.002,
+  "dilimler": [
+   {
+    "n": 44,
+    "beklenen": 0.0081,
+    "gozlenen": 0.0227,
+    "ga": [
+     0.004,
+     0.1181
+    ]
+   },
+   {
+    "n": 44,
+    "beklenen": 0.0197,
+    "gozlenen": 0.0,
+    "ga": [
+     0.0,
+     0.0803
+    ]
+   },
+   {
+    "n": 44,
+    "beklenen": 0.0377,
+    "gozlenen": 0.0455,
+    "ga": [
+     0.0126,
+     0.1514
+    ]
+   },
+   {
+    "n": 43,
+    "beklenen": 0.0536,
+    "gozlenen": 0.0465,
+    "ga": [
+     0.0128,
+     0.1546
+    ]
+   },
+   {
+    "n": 44,
+    "beklenen": 0.0765,
+    "gozlenen": 0.0227,
+    "ga": [
+     0.004,
+     0.1181
+    ]
+   },
+   {
+    "n": 44,
+    "beklenen": 0.115,
+    "gozlenen": 0.0455,
+    "ga": [
+     0.0126,
+     0.1514
+    ]
+   },
+   {
+    "n": 43,
+    "beklenen": 0.1662,
+    "gozlenen": 0.2326,
+    "ga": [
+     0.1315,
+     0.3774
+    ]
+   },
+   {
+    "n": 44,
+    "beklenen": 0.2631,
+    "gozlenen": 0.25,
+    "ga": [
+     0.1457,
+     0.3944
+    ]
+   },
+   {
+    "n": 44,
+    "beklenen": 0.4243,
+    "gozlenen": 0.4773,
+    "ga": [
+     0.3375,
+     0.6206
+    ]
+   },
+   {
+    "n": 44,
+    "beklenen": 0.7525,
+    "gozlenen": 0.7955,
+    "ga": [
+     0.655,
+     0.8885
+    ]
+   }
+  ]
+ },
+ "dış — E/e′ (ön-tanımlı birincil)": {
+  "n": 303,
+  "prevalans": 0.2508,
+  "brier_ham": 0.1625,
+  "brier_kalibre": 0.1437,
+  "beceri": 0.2351,
+  "egim": 0.704,
+  "egim_ga": [
+   0.544,
+   0.902
+  ],
+  "kesisim": 0.294,
+  "kesisim_ga": [
+   -0.113,
+   0.668
+  ],
+  "ortalama_fark": 0.031,
+  "dilimler": [
+   {
+    "n": 61,
+    "beklenen": 0.0098,
+    "gozlenen": 0.0328,
+    "ga": [
+     0.009,
+     0.1119
+    ]
+   },
+   {
+    "n": 60,
+    "beklenen": 0.0342,
+    "gozlenen": 0.05,
+    "ga": [
+     0.0171,
+     0.137
+    ]
+   },
+   {
+    "n": 61,
+    "beklenen": 0.0991,
+    "gozlenen": 0.1475,
+    "ga": [
+     0.0796,
+     0.2572
+    ]
+   },
+   {
+    "n": 60,
+    "beklenen": 0.2621,
+    "gozlenen": 0.45,
+    "ga": [
+     0.3309,
+     0.5751
+    ]
+   },
+   {
+    "n": 61,
+    "beklenen": 0.6917,
+    "gozlenen": 0.5738,
+    "ga": [
+     0.449,
+     0.6898
+    ]
+   }
+  ],
+  "ikincil_yeniden_kalibre": {
+   "kesisim_guncellemesi": 0.294,
+   "brier": 0.1435,
+   "beceri": 0.2361
+  }
+ },
+ "dış — ASE LAP": {
+  "n": 191,
+  "prevalans": 0.1466,
+  "brier_ham": 0.1273,
+  "brier_kalibre": 0.0744,
+  "beceri": 0.4057,
+  "egim": 1.011,
+  "egim_ga": [
+   0.783,
+   1.466
+  ],
+  "kesisim": -0.671,
+  "kesisim_ga": [
+   -1.219,
+   -0.148
+  ],
+  "ortalama_fark": -0.0497,
+  "dilimler": [
+   {
+    "n": 38,
+    "beklenen": 0.0076,
+    "gozlenen": 0.0,
+    "ga": [
+     0.0,
+     0.0918
+    ]
+   },
+   {
+    "n": 38,
+    "beklenen": 0.0197,
+    "gozlenen": 0.0263,
+    "ga": [
+     0.0047,
+     0.135
+    ]
+   },
+   {
+    "n": 39,
+    "beklenen": 0.0583,
+    "gozlenen": 0.0256,
+    "ga": [
+     0.0045,
+     0.1318
+    ]
+   },
+   {
+    "n": 37,
+    "beklenen": 0.1831,
+    "gozlenen": 0.1351,
+    "ga": [
+     0.0591,
+     0.2798
+    ]
+   },
+   {
+    "n": 39,
+    "beklenen": 0.703,
+    "gozlenen": 0.5385,
+    "ga": [
+     0.3857,
+     0.6843
+    ]
+   }
+  ],
+  "ikincil_yeniden_kalibre": {
+   "kesisim_guncellemesi": -0.671,
+   "brier": 0.0669,
+   "beceri": 0.465
+  }
+ }
+}

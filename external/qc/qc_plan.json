@@ -1,0 +1,425 @@
+{
+ "aciklama": "QC 2. tur plan\u0131 \u2014 1. turun 30 muayenesi, _qc dizinindeki kay\u0131tlardan yeniden kuruldu (2026-09-27)",
+ "plan": [
+  {
+   "exam_id": "exam_0b2f764979e8f88d",
+   "rid": "recording_2efc3cb0edb5549f"
+  },
+  {
+   "exam_id": "exam_0b2f764979e8f88d",
+   "rid": "recording_7ba24c1cadba6bbd"
+  },
+  {
+   "exam_id": "exam_0b2f764979e8f88d",
+   "rid": "recording_e4a4f2b71e6c26e2"
+  },
+  {
+   "exam_id": "exam_0b2f764979e8f88d",
+   "rid": "recording_fd28982f5ce14a94"
+  },
+  {
+   "exam_id": "exam_1189f75de924153b",
+   "rid": "recording_27d91930363cd934"
+  },
+  {
+   "exam_id": "exam_1189f75de924153b",
+   "rid": "recording_75821dd566fb7e90"
+  },
+  {
+   "exam_id": "exam_1189f75de924153b",
+   "rid": "recording_b9dcf17ca8eb04d0"
+  },
+  {
+   "exam_id": "exam_159b3c8e3d95bc5e",
+   "rid": "recording_1ba8b4bf855f2be0"
+  },
+  {
+   "exam_id": "exam_159b3c8e3d95bc5e",
+   "rid": "recording_31144c7a3628aee0"
+  },
+  {
+   "exam_id": "exam_159b3c8e3d95bc5e",
+   "rid": "recording_aa4187ceb1ab6ac9"
+  },
+  {
+   "exam_id": "exam_26fdca9c130848e5",
+   "rid": "recording_41169a0fe5be17b9"
+  },
+  {
+   "exam_id": "exam_26fdca9c130848e5",
+   "rid": "recording_6dc887c893664f0c"
+  },
+  {
+   "exam_id": "exam_26fdca9c130848e5",
+   "rid": "recording_f773b339de5599d9"
+  },
+  {
+   "exam_id": "exam_359b81192c95121a",
+   "rid": "recording_18125b98c7e2f40a"
+  },
+  {
+   "exam_id": "exam_359b81192c95121a",
+   "rid": "recording_56d72b35821e0082"
+  },
+  {
+   "exam_id": "exam_359b81192c95121a",
+   "rid": "recording_a43826a308096832"
+  },
+  {
+   "exam_id": "exam_3634223574130170",
+   "rid": "recording_764361a8e7480b70"
+  },
+  {
+   "exam_id": "exam_3634223574130170",
+   "rid": "recording_acbdb7a916f4cdc0"
+  },
+  {
+   "exam_id": "exam_3634223574130170",
+   "rid": "recording_aec85c3769c39534"
+  },
+  {
+   "exam_id": "exam_3634223574130170",
+   "rid": "recording_e134fec8b4bbec23"
+  },
+  {
+   "exam_id": "exam_392e0c576ed56c91",
+   "rid": "recording_1a5ed55bae636a6e"
+  },
+  {
+   "exam_id": "exam_392e0c576ed56c91",
+   "rid": "recording_3a8263cc772e5e31"
+  },
+  {
+   "exam_id": "exam_392e0c576ed56c91",
+   "rid": "recording_922f35002af6cd9e"
+  },
+  {
+   "exam_id": "exam_392e0c576ed56c91",
+   "rid": "recording_99cbb538c706d5f2"
+  },
+  {
+   "exam_id": "exam_41718d76eb3342fe",
+   "rid": "recording_0a4f00fca89ee225"
+  },
+  {
+   "exam_id": "exam_41718d76eb3342fe",
+   "rid": "recording_1096f91771ffedbe"
+  },
+  {
+   "exam_id": "exam_41718d76eb3342fe",
+   "rid": "recording_1544edf9d6e3d2fa"
+  },
+  {
+   "exam_id": "exam_53d0f22ac8616d97",
+   "rid": "recording_0b30d2a0ba3791fa"
+  },
+  {
+   "exam_id": "exam_53d0f22ac8616d97",
+   "rid": "recording_1bed4ea908b89a33"
+  },
+  {
+   "exam_id": "exam_53d0f22ac8616d97",
+   "rid": "recording_fab6c962e4c7ff1b"
+  },
+  {
+   "exam_id": "exam_569722dab0b86125",
+   "rid": "recording_14cb50abb780ad74"
+  },
+  {
+   "exam_id": "exam_569722dab0b86125",
+   "rid": "recording_4655ff380edc66c7"
+  },
+  {
+   "exam_id": "exam_569722dab0b86125",
+   "rid": "recording_bc40c3cbc4eac0ec"
+  },
+  {
+   "exam_id": "exam_569722dab0b86125",
+   "rid": "recording_c688e121bebff775"
+  },
+  {
+   "exam_id": "exam_6a9409bcee0e2fc9",
+   "rid": "recording_1b282fa90cba443e"
+  },
+  {
+   "exam_id": "exam_6a9409bcee0e2fc9",
+   "rid": "recording_1edcc800653c236a"
+  },
+  {
+   "exam_id": "exam_6a9409bcee0e2fc9",
+   "rid": "recording_f610a830ac837206"
+  },
+  {
+   "exam_id": "exam_6c9b586789ca41b1",
+   "rid": "recording_1a15e327240c0f2b"
+  },
+  {
+   "exam_id": "exam_6c9b586789ca41b1",
+   "rid": "recording_23c8dc186a8d6240"
+  },
+  {
+   "exam_id": "exam_6c9b586789ca41b1",
+   "rid": "recording_de85dc17a466cc0e"
+  },
+  {
+   "exam_id": "exam_78692fd178b223f9",
+   "rid": "recording_22c9170410ddd172"
+  },
+  {
+   "exam_id": "exam_78692fd178b223f9",
+   "rid": "recording_2fe11b3cb7f9b13b"
+  },
+  {
+   "exam_id": "exam_78692fd178b223f9",
+   "rid": "recording_409277856a13ef34"
+  },
+  {
+   "exam_id": "exam_79a84d8ad23b1fd4",
+   "rid": "recording_1dfed7f474fa9cff"
+  },
+  {
+   "exam_id": "exam_79a84d8ad23b1fd4",
+   "rid": "recording_5a96d67ad33dac3a"
+  },
+  {
+   "exam_id": "exam_79a84d8ad23b1fd4",
+   "rid": "recording_859b8fd10bd0d3f9"
+  },
+  {
+   "exam_id": "exam_79a84d8ad23b1fd4",
+   "rid": "recording_b41db4c358f16354"
+  },
+  {
+   "exam_id": "exam_8da6b568e0179e95",
+   "rid": "recording_55c04600bdcfd2da"
+  },
+  {
+   "exam_id": "exam_8da6b568e0179e95",
+   "rid": "recording_98cff72b9e1a9ee7"
+  },
+  {
+   "exam_id": "exam_8da6b568e0179e95",
+   "rid": "recording_b99057211c941252"
+  },
+  {
+   "exam_id": "exam_92b9222ec2303d70",
+   "rid": "recording_130fc5e00f374ebf"
+  },
+  {
+   "exam_id": "exam_92b9222ec2303d70",
+   "rid": "recording_d84f2dbe987b4947"
+  },
+  {
+   "exam_id": "exam_92b9222ec2303d70",
+   "rid": "recording_f7e38ad5d54e2ee7"
+  },
+  {
+   "exam_id": "exam_a20766b1c6a8c08a",
+   "rid": "recording_0c1284bb6b77e2c2"
+  },
+  {
+   "exam_id": "exam_a20766b1c6a8c08a",
+   "rid": "recording_14ee3f9c0a9a0138"
+  },
+  {
+   "exam_id": "exam_a20766b1c6a8c08a",
+   "rid": "recording_72d2d6f99dd45867"
+  },
+  {
+   "exam_id": "exam_a20766b1c6a8c08a",
+   "rid": "recording_cb8b284fb4295ad8"
+  },
+  {
+   "exam_id": "exam_aecc314dfd14ee33",
+   "rid": "recording_1a40927ecdd07ca8"
+  },
+  {
+   "exam_id": "exam_aecc314dfd14ee33",
+   "rid": "recording_8dbff410a6c8496c"
+  },
+  {
+   "exam_id": "exam_aecc314dfd14ee33",
+   "rid": "recording_99574638d02eca1f"
+  },
+  {
+   "exam_id": "exam_aecc314dfd14ee33",
+   "rid": "recording_fdbb847004c7b85d"
+  },
+  {
+   "exam_id": "exam_b19eb2979e2b0e4a",
+   "rid": "recording_066a8a7e2c75cc0b"
+  },
+  {
+   "exam_id": "exam_b19eb2979e2b0e4a",
+   "rid": "recording_1a743148f5f4382b"
+  },
+  {
+   "exam_id": "exam_b19eb2979e2b0e4a",
+   "rid": "recording_3e265a2845bdab22"
+  },
+  {
+   "exam_id": "exam_b19eb2979e2b0e4a",
+   "rid": "recording_5b29ed570fdab2d2"
+  },
+  {
+   "exam_id": "exam_b19eb2979e2b0e4a",
+   "rid": "recording_7e082d92fe6a4f23"
+  },
+  {
+   "exam_id": "exam_b78d5976a22052c1",
+   "rid": "recording_542e38ec9cb129f0"
+  },
+  {
+   "exam_id": "exam_b78d5976a22052c1",
+   "rid": "recording_5c1c7afa467132d4"
+  },
+  {
+   "exam_id": "exam_b78d5976a22052c1",
+   "rid": "recording_a016bccc0888ddda"
+  },
+  {
+   "exam_id": "exam_b78d5976a22052c1",
+   "rid": "recording_eee03f3d5139360e"
+  },
+  {
+   "exam_id": "exam_bd14e4639db7e56c",
+   "rid": "recording_a18fa65381dbc808"
+  },
+  {
+   "exam_id": "exam_bd14e4639db7e56c",
+   "rid": "recording_bd2a283b7c647f30"
+  },
+  {
+   "exam_id": "exam_bd14e4639db7e56c",
+   "rid": "recording_da9f7e8f357f6dc9"
+  },
+  {
+   "exam_id": "exam_bd2ffa203bbda620",
+   "rid": "recording_08f75eda5fea1d56"
+  },
+  {
+   "exam_id": "exam_bd2ffa203bbda620",
+   "rid": "recording_30efe49a6efffc0d"
+  },
+  {
+   "exam_id": "exam_bd2ffa203bbda620",
+   "rid": "recording_4d3e681d84f5c0a2"
+  },
+  {
+   "exam_id": "exam_bd2ffa203bbda620",
+   "rid": "recording_95ba58f64a3322ce"
+  },
+  {
+   "exam_id": "exam_c5df14c3218c0ef2",
+   "rid": "recording_38182ce12e6fe753"
+  },
+  {
+   "exam_id": "exam_c5df14c3218c0ef2",
+   "rid": "recording_beccfddbd7308568"
+  },
+  {
+   "exam_id": "exam_c5df14c3218c0ef2",
+   "rid": "recording_c0d968f1204fcc7b"
+  },
+  {
+   "exam_id": "exam_c5df14c3218c0ef2",
+   "rid": "recording_fb012f6356695604"
+  },
+  {
+   "exam_id": "exam_cb8ff5de2accca87",
+   "rid": "recording_8fede05388180bbc"
+  },
+  {
+   "exam_id": "exam_cb8ff5de2accca87",
+   "rid": "recording_9e43b42d46e72b55"
+  },
+  {
+   "exam_id": "exam_cb8ff5de2accca87",
+   "rid": "recording_a5b49ae1a91e8020"
+  },
+  {
+   "exam_id": "exam_d15d1359e9ab16fa",
+   "rid": "recording_0cac700dfd56447f"
+  },
+  {
+   "exam_id": "exam_d15d1359e9ab16fa",
+   "rid": "recording_39955f0400c63db4"
+  },
+  {
+   "exam_id": "exam_d15d1359e9ab16fa",
+   "rid": "recording_6eb5e7ed8aae5fd1"
+  },
+  {
+   "exam_id": "exam_d15d1359e9ab16fa",
+   "rid": "recording_8fcb56967aaec31e"
+  },
+  {
+   "exam_id": "exam_d2c32725b97b7c39",
+   "rid": "recording_30b5cb051ecdbce6"
+  },
+  {
+   "exam_id": "exam_d2c32725b97b7c39",
+   "rid": "recording_7c01ae1b5caa176e"
+  },
+  {
+   "exam_id": "exam_d2c32725b97b7c39",
+   "rid": "recording_a86f3e8876066fa7"
+  },
+  {
+   "exam_id": "exam_d2c32725b97b7c39",
+   "rid": "recording_b7052e20d2914ba8"
+  },
+  {
+   "exam_id": "exam_dfd2b67e69d740e7",
+   "rid": "recording_66b633c256210253"
+  },
+  {
+   "exam_id": "exam_dfd2b67e69d740e7",
+   "rid": "recording_90b008c9ee8ebfe2"
+  },
+  {
+   "exam_id": "exam_dfd2b67e69d740e7",
+   "rid": "recording_b2d8e9d959e151d1"
+  },
+  {
+   "exam_id": "exam_dfd2b67e69d740e7",
+   "rid": "recording_b7acf5cb5da1d9db"
+  },
+  {
+   "exam_id": "exam_f4319dcf8ff5dbf1",
+   "rid": "recording_14729b2b149a0096"
+  },
+  {
+   "exam_id": "exam_f4319dcf8ff5dbf1",
+   "rid": "recording_6c4f0d4938cd8238"
+  },
+  {
+   "exam_id": "exam_f4319dcf8ff5dbf1",
+   "rid": "recording_74abc9c85a975b17"
+  },
+  {
+   "exam_id": "exam_f7ab6cdcd96c86ab",
+   "rid": "recording_54c93f296ebaa44d"
+  },
+  {
+   "exam_id": "exam_f7ab6cdcd96c86ab",
+   "rid": "recording_a7019ecc0d9abb15"
+  },
+  {
+   "exam_id": "exam_f8e842c3959ef626",
+   "rid": "recording_505f88024aa77f3e"
+  },
+  {
+   "exam_id": "exam_f8e842c3959ef626",
+   "rid": "recording_711ac1455c56da53"
+  },
+  {
+   "exam_id": "exam_f8e842c3959ef626",
+   "rid": "recording_931e138ba408a489"
+  },
+  {
+   "exam_id": "exam_f8e842c3959ef626",
+   "rid": "recording_9a4c6c53162739c1"
+  }
+ ]
+}
