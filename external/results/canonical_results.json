@@ -1,0 +1,285 @@
+{
+ "tohum": 20260901,
+ "bootstrap_tekrar": 4000,
+ "kilitli": {
+  "platt": {
+   "yontem": "Platt, yalniz val",
+   "a": 1.7397,
+   "b": -1.2923
+  },
+  "esik": 0.1286,
+  "gri_bolge": [
+   0.1132,
+   0.3567
+  ],
+  "kaynak": "yalniz ic validation seti"
+ },
+ "kohortlar": {
+  "ic_test_ASE_LAP": {
+   "n": 438,
+   "olay": 85,
+   "prevalans": 0.1941,
+   "auroc": 0.8824,
+   "auroc_ga": [
+    0.839,
+    0.9205
+   ],
+   "auprc": 0.7031,
+   "brier_ham": 0.1462,
+   "brier": 0.097,
+   "guvenilirlik": 0.00177,
+   "cozunurluk": 0.06111,
+   "belirsizlik_taban": 0.1564,
+   "kalibrasyon_egimi": 1.123,
+   "kalibrasyon_egimi_ga": [
+    0.9064,
+    1.4218
+   ],
+   "kesisim": 0.02,
+   "kesisim_ga": [
+    -0.2654,
+    0.2927
+   ],
+   "ortalama_fark": 0.002,
+   "esikte": {
+    "TP": 78,
+    "FP": 105,
+    "TN": 248,
+    "FN": 7,
+    "duyarlilik": 0.9176,
+    "ozgulluk": 0.7025,
+    "PPD": 0.4262,
+    "NPD": 0.9725
+   },
+   "beceri_puani": 0.3798,
+   "gri_bolge": {
+    "belirsiz_n": 119,
+    "belirsiz_oran": 0.2717
+   },
+   "gri_disi": {
+    "n": 319,
+    "olay": 58,
+    "auroc": 0.9186,
+    "auroc_ga": [
+     0.8661,
+     0.9611
+    ],
+    "TP": 52,
+    "FP": 29,
+    "TN": 232,
+    "FN": 6,
+    "duyarlilik": 0.8966,
+    "ozgulluk": 0.8889,
+    "PPD": 0.642,
+    "NPD": 0.9748
+   }
+  },
+  "dis_ASE_LAP": {
+   "n": 191,
+   "olay": 28,
+   "prevalans": 0.1466,
+   "auroc": 0.9242,
+   "auroc_ga": [
+    0.8673,
+    0.9683
+   ],
+   "auprc": 0.7735,
+   "brier_ham": 0.1273,
+   "brier": 0.0744,
+   "guvenilirlik": 0.00739,
+   "cozunurluk": 0.05258,
+   "belirsizlik_taban": 0.12511,
+   "kalibrasyon_egimi": 1.011,
+   "kalibrasyon_egimi_ga": [
+    0.7737,
+    1.4679
+   ],
+   "kesisim": -0.671,
+   "kesisim_ga": [
+    -1.2421,
+    -0.1509
+   ],
+   "ortalama_fark": -0.0497,
+   "esikte": {
+    "TP": 26,
+    "FP": 41,
+    "TN": 122,
+    "FN": 2,
+    "duyarlilik": 0.9286,
+    "ozgulluk": 0.7485,
+    "PPD": 0.3881,
+    "NPD": 0.9839
+   },
+   "beceri_puani": 0.4053,
+   "gri_bolge": {
+    "belirsiz_n": 30,
+    "belirsiz_oran": 0.1571
+   },
+   "gri_disi": {
+    "n": 161,
+    "olay": 23,
+    "auroc": 0.9455,
+    "auroc_ga": [
+     0.8884,
+     0.9846
+    ],
+    "TP": 21,
+    "FP": 18,
+    "TN": 120,
+    "FN": 2,
+    "duyarlilik": 0.913,
+    "ozgulluk": 0.8696,
+    "PPD": 0.5385,
+    "NPD": 0.9836
+   }
+  },
+  "dis_Ee_birincil": {
+   "n": 303,
+   "olay": 76,
+   "prevalans": 0.2508,
+   "auroc": 0.8285,
+   "auroc_ga": [
+    0.7755,
+    0.8781
+   ],
+   "auprc": 0.6454,
+   "brier_ham": 0.1625,
+   "brier": 0.1437,
+   "guvenilirlik": 0.01127,
+   "cozunurluk": 0.05459,
+   "belirsizlik_taban": 0.18791,
+   "kalibrasyon_egimi": 0.704,
+   "kalibrasyon_egimi_ga": [
+    0.5509,
+    0.8969
+   ],
+   "kesisim": 0.294,
+   "kesisim_ga": [
+    -0.0942,
+    0.6522
+   ],
+   "ortalama_fark": 0.031,
+   "esikte": {
+    "TP": 64,
+    "FP": 68,
+    "TN": 159,
+    "FN": 12,
+    "duyarlilik": 0.8421,
+    "ozgulluk": 0.7004,
+    "PPD": 0.4848,
+    "NPD": 0.9298
+   },
+   "beceri_puani": 0.2353,
+   "gri_bolge": {
+    "belirsiz_n": 71,
+    "belirsiz_oran": 0.2343
+   },
+   "gri_disi": {
+    "n": 232,
+    "olay": 50,
+    "auroc": 0.8612,
+    "auroc_ga": [
+     0.7962,
+     0.9158
+    ],
+    "TP": 38,
+    "FP": 31,
+    "TN": 151,
+    "FN": 12,
+    "duyarlilik": 0.76,
+    "ozgulluk": 0.8297,
+    "PPD": 0.5507,
+    "NPD": 0.9264
+   }
+  }
+ },
+ "duyarlilik_mitral": {
+  "olcut": "mitral CW, MR veya PISA izi olan muayeneler dislandi",
+  "kohortlar": {
+   "dis_Ee_birincil": {
+    "dislanan": 18,
+    "n": 285,
+    "olay": 60,
+    "auroc": 0.8236,
+    "auroc_ga": [
+     0.7631,
+     0.8787
+    ]
+   },
+   "dis_ASE_LAP": {
+    "dislanan": 10,
+    "n": 181,
+    "olay": 20,
+    "auroc": 0.9332,
+    "auroc_ga": [
+     0.8819,
+     0.9731
+    ]
+   }
+  }
+ },
+ "duyarlilik_cogunluk": {
+  "n": 190,
+  "olay": 60,
+  "auroc": 0.8113,
+  "auroc_ga": [
+   0.7403,
+   0.8763
+  ]
+ },
+ "kirpilma": {
+  "tersil_sinirlari": [
+   0.0424,
+   0.0842
+  ],
+  "tersiller": [
+   {
+    "tersil": 1,
+    "n": 105,
+    "olay": 24,
+    "auroc": 0.8771,
+    "auroc_ga": [
+     0.7867,
+     0.9529
+    ]
+   },
+   {
+    "tersil": 2,
+    "n": 101,
+    "olay": 22,
+    "auroc": 0.7727,
+    "auroc_ga": [
+     0.6499,
+     0.8789
+    ]
+   },
+   {
+    "tersil": 3,
+    "n": 97,
+    "olay": 30,
+    "auroc": 0.799,
+    "auroc_ga": [
+     0.7064,
+     0.8783
+    ]
+   }
+  ],
+  "T1_eksi_T3": {
+   "fark": 0.0795,
+   "ga": [
+    -0.0481,
+    0.1999
+   ],
+   "p_fark_sifir_veya_negatif": 0.108
+  }
+ },
+ "ic_test_Ee_hedef_uyumsuz": {
+  "n": 438,
+  "olay": 114,
+  "auroc": 0.8238,
+  "auroc_ga": [
+   0.7739,
+   0.8678
+  ]
+ }
+}

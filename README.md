@@ -1,94 +1,120 @@
-# Doppler-free diastolic grading on MIMIC-IV-ECHO
+# Doppler-free triage for elevated left ventricular filling pressure
 
-Code for grading left ventricular diastolic function from **B-mode echocardiographic video alone
-— no Doppler** — on the public MIMIC-IV-ECHO dataset, with reference grades derived from the
-**2025 ASE guideline**.
+Code for estimating **elevated left atrial pressure from B-mode echocardiographic video alone — no Doppler
+at inference** — developed on the public MIMIC-IV-ECHO dataset and validated, without adaptation, on the
+independent public EchoXFlow dataset (Akershus University Hospital, Norway).
 
-This repository accompanies the manuscript *"Automated Grading of Left Ventricular Diastolic
-Function from B-Mode Echocardiographic Video: A Reproducible Open Benchmark on MIMIC-IV-ECHO
-Aligned with the 2025 ASE Guideline"* (Köksal F., under review).
+This repository accompanies the manuscript *"Doppler-Free Triage for Elevated Left Ventricular Filling
+Pressure from B-Mode Echocardiographic Video: Development on Open Data with Independent External
+Validation"* (Köksal F., submitted). An earlier four-class grading version of this work is preserved in
+the git history (commit `816a474`).
 
----
+| | Internal test (MIMIC-IV-ECHO) | External (EchoXFlow) |
+|---|---|---|
+| Guideline-defined elevated LAP | AUROC 0.882 (0.839–0.920), n = 438 | AUROC 0.924 (0.867–0.968), n = 191 |
+| Elevated E/e′ (prespecified primary, external) | AUROC 0.824 (0.774–0.868) | AUROC 0.829 (0.775–0.878), n = 303 |
 
-## ⚠️ No data in this repository — and why
-
-MIMIC-IV-ECHO and MIMIC-IV are **credentialed-access** datasets distributed by PhysioNet under a
-data use agreement that prohibits redistributing the data or patient-level data derived from it.
-
-This repository therefore contains **code only**. It contains no images, no labels, no splits, no
-cohort tables and no model weights. What it contains instead is the code that **regenerates all of
-them deterministically** from the source data, so that any PhysioNet-credentialed user can
-reproduce every number in the paper without anyone having to redistribute a single patient record.
-
-To run this you need your own credentialed access:
-
-1. Complete the CITI "Data or Specimens Only Research" training.
-2. Obtain credentialed access to **MIMIC-IV-ECHO v1.0** (https://doi.org/10.13026/nrjh-5r77),
-   **MIMIC-IV** (https://doi.org/10.13026/6mm1-ek67) and **MIMIC-IV-ECG**, and sign their DUAs.
-3. Download them yourself. Nothing here will download restricted data for you.
-
-The reference labels, the patient-level splits and the trained weights are *derived* artefacts of
-those datasets. If you want them as files rather than regenerating them, they must be obtained
-through PhysioNet's own channel for derived data, not from this repository.
+All reported numbers are produced by `external/canonical_results.py` (fixed seed, 4,000 bootstrap
+resamples) and stored in [`external/results/`](external/results/).
 
 ---
 
-## What the pipeline does
+## Prespecification and deviations
+
+- [`docs/analysis_plan.md`](docs/analysis_plan.md) — written before any external data were analysed:
+  endpoints, reference standards, cohort rules, decision parameters, the quality covariate and its
+  tertile boundaries.
+- [`docs/DEVIATIONS.md`](docs/DEVIATIONS.md) — the dated record of every departure from that plan.
+- [`docs/parameter_availability.md`](docs/parameter_availability.md) — which 2025 ASE variables were
+  available in each cohort, and the decision rules applied.
+
+## ⚠️ No restricted data in this repository
+
+MIMIC-IV-ECHO and MIMIC-IV are **credentialed-access** datasets distributed by PhysioNet under a data use
+agreement that prohibits redistributing the data or patient-level data derived from it. This repository
+contains **code, aggregate results and the author's quality-control decisions only** — no images, labels,
+splits, per-study predictions or model weights for MIMIC. These are regenerated deterministically by the
+code from the source data.
+
+EchoXFlow is public (CC BY-NC-SA 4.0): <https://huggingface.co/datasets/Ahus-AIM/EchoXFlow>. Derived
+EchoXFlow measurements are not redistributed here either; `external/build_external_reference.py`
+regenerates them from the dataset's own metadata.
+
+To run the development pipeline you need your own credentialed access to **MIMIC-IV-ECHO v1.0**
+(<https://doi.org/10.13026/nrjh-5r77>), **MIMIC-IV** (<https://doi.org/10.13026/6mm1-ek67>) and
+**MIMIC-IV-ECG**.
+
+---
+
+## Pipeline
+
+### Development (MIMIC-IV-ECHO) — `grading/`
 
 | Stage | Script | Purpose |
 |---|---|---|
-| Labels | `diastolic_grading.py` | Applies the 2025 ASE algorithm to the structured measurements; excludes atrial fibrillation (via temporally matched MIMIC-IV-ECG, ICD fallback) and significant mitral disease, for which the algorithm is undefined. Returns `Incomputable` when a determinant is missing — it never imputes a grade. |
-| Preprocess | `shrink_pipeline.py`, `run_local.py`, `redownload_hires.py` | DICOM → grayscale B-mode cine → sector crop → 224×224 NPZ. Color/spectral Doppler and still frames are dropped from the DICOM metadata, never from pixel analysis. |
-| Views | `view_classify.py` | Keeps A4C / A2C / PLAX only. |
-| Splits | `make_splits.py` | Patient-level, grade-stratified 70/15/15 with zero patient overlap. |
-| Model | `model.py`, `dataset.py`, `train.py` | PanEcho video encoder fine-tuned with a CORN ordinal head plus auxiliary regression of the guideline determinants (**training signal only** — no measurement and no Doppler are needed at inference). |
-| Fusion | `embed_clips.py`, `train_mil.py`, `mil_predict.py` | Gated-attention multiple-instance pooling over a study's clips → the reported model. |
-| Evaluation | `binary_eval.py`, `compare_models.py`, `panecho_baseline.py`, `ablation_ef.py` | Screening AUROCs with bootstrap CIs, paired model comparison, zero-shot and EF-only baselines. |
-| Out-of-fold | `kfold_oof.py`, `run_oof_resume.sh` | 5-fold patient-grouped cross-validation giving an unbiased prediction for every study — the basis of the prognostic analyses. |
-| Prognosis | `mortality_analysis.py`, `ntprobnp_analysis.py`, `run_analysis_chain.sh` | One-year all-cause mortality (Cox, C-index) and NT-proBNP — two references *outside* the echocardiogram. |
-| Ensemble | `ensemble_eval.py`, `run_ensemble_chain.sh` | Five models on independent partitions; robustness and soft-voting. |
-| Figures | `make_figures.py` | Every figure in the paper, regenerated from the data at draw time. |
-
-### Order
+| Labels | `diastolic_grading.py` | 2025 ASE algorithm applied to structured measurements, stopping at the left-atrial-pressure node; excludes atrial fibrillation and significant mitral disease. Never imputes a label. |
+| Preprocess | `shrink_pipeline.py`, `run_local.py`, `redownload_hires.py`, `build_local_clips.py` | DICOM → grayscale B-mode cine → sector crop → 224×224. |
+| Views | `view_classify.py` | EchoPrime view classifier; keeps A4C / A2C / PLAX. |
+| Splits | `make_splits.py`, `make_binary_splits.py` | Patient-level 70/15/15; the binary file carries the same splits with the LAP label. |
+| Model | `model.py`, `dataset.py`, `train_binary.py` | PanEcho video encoder fine-tuned with a binary head and an auxiliary regression head (training signal only). |
+| Locking | `finalize_binary.py` | Platt calibration, Youden threshold and indeterminate zone, fitted on the validation set only. |
 
 ```bash
-python3 diastolic_grading.py            # labels  (needs MIMIC-IV hosp/ + MIMIC-IV-ECG)
-python3 shrink_pipeline.py              # DICOM -> NPZ
-python3 view_classify.py                # A4C/A2C/PLAX
-python3 make_splits.py                  # patient-level splits
-python3 train.py                        # clip-level encoder
-python3 embed_clips.py && python3 train_mil.py   # attention-MIL fusion (the reported model)
-python3 binary_eval.py                  # test-set metrics
-python3 kfold_oof.py --folds 5          # out-of-fold predictions (~4 h on one GPU)
-python3 mortality_analysis.py --preds ~/mimic-echo/runs/oof_predictions.csv
-python3 ntprobnp_analysis.py --preds ~/mimic-echo/runs/oof_predictions.csv
-python3 make_figures.py fig1            # ... fig2, fig3, fig4, figS1, figS2, central
+python3 diastolic_grading.py
+python3 shrink_pipeline.py && python3 view_classify.py
+python3 make_splits.py && python3 make_binary_splits.py
+python3 train_binary.py --out-dir ~/mimic-echo/runs/b2_binary
+python3 finalize_binary.py --run-dir ~/mimic-echo/runs/b2_binary
 ```
 
-Paths default to `~/mimic-echo/`; override them with the scripts' own flags.
+### External validation (EchoXFlow) — `external/`
 
-### Long GPU jobs
+| Stage | Script |
+|---|---|
+| Reference standard from sonographers' calipers (CW baseline correction, CW only) | `build_external_reference.py` |
+| Spectral-truncation covariate; rhythm exclusion | `spectral_quality.py`, `clipping_covariate.py` |
+| Beamspace → Cartesian rendering of B-mode recordings | `render_echoxflow.py` (cohort list `render_cohort.txt`), then `grading/view_classify.py` |
+| Zero-shot inference with the locked model, threshold and calibration | `run_external.py` |
+| **All reported numbers (single source)** | `canonical_results.py` |
+| Calibration, decision curves, prevalence transfer, structural confounding, Table 1 | `calibration_analysis.py`, `decision_curve.py`, `prevalence_transfer.py`, `structural_confounder.py`, `table1.py` |
+| Mitral sensitivity analysis cohort | `mitral_trace_exams.py` |
+| Figures | `make_external_figures.py` |
+| Blinded reader review of the reference standard | `make_qc_panels2.py`, `build_qc_page.py`, `build_qc_page_tur2.py`; plan and decisions in `qc/` |
 
-`run_oof_resume.sh`, `run_ensemble_chain.sh` and `run_analysis_chain.sh` wrap the long jobs.
-They checkpoint **every epoch** (atomically) and wait for the GPU to come back before spending a
-retry — written after two multi-hour runs were lost to a GPU that dropped off the PCIe bus under
-sustained load. If your hardware is stable you will never notice them; if it is not, they are the
-difference between finishing and not.
+```bash
+python3 external/build_external_reference.py
+python3 external/spectral_quality.py && python3 external/clipping_covariate.py
+python3 external/render_echoxflow.py && python3 grading/view_classify.py --npz-dir ~/echoxflow-render/npz
+python3 external/run_external.py
+python3 external/mitral_trace_exams.py
+python3 external/canonical_results.py
+python3 external/calibration_analysis.py && python3 external/decision_curve.py && python3 external/prevalence_transfer.py
+python3 external/make_external_figures.py
+```
+
+Scripts run from the project root. Paths default to `~/mimic-echo/`, `~/echoxflow-render/` and
+`echoxflow/`; machine-specific roots can be set with `MIMIC_IV_ROOT`, `MIMIC_ECHO_DICOM_ROOT` and
+`GCP_BILLING_PROJECT`.
 
 ## Requirements
 
-Python 3.13, PyTorch 2.11 (CUDA 12.8), scikit-learn, lifelines, pydicom, OpenCV, matplotlib.
-See `requirements.txt`. A single 24 GB+ GPU is enough; the MIL head trains on CPU in minutes.
+Python 3.13, PyTorch 2.11 (CUDA 12.8), scikit-learn, pydicom, OpenCV, zarr, numcodecs, matplotlib; see
+`requirements.txt`. A single 24 GB GPU is sufficient. The video encoder is **PanEcho** (Holste et al.,
+*JAMA* 2025), loaded from `torch.hub` (`CarDS-Yale/PanEcho`); the view classifier is from **EchoPrime**
+(Vukadinovic et al., *Nature* 2025). Neither is vendored here. EchoXFlow reading and scan conversion use
+the dataset's reference implementation (<https://github.com/Ahus-AIM/EchoXFlow>).
 
-The video encoder is **PanEcho** (Holste et al., *JAMA* 2025), pulled from `torch.hub`
-(`CarDS-Yale/PanEcho`) — it is not vendored here.
+## Use of a large language model
+
+A large language model (Claude, Anthropic) operated as a coding and analysis agent and wrote and executed
+much of this code under the author's direction. Its role and the human quality control applied are
+described in the Methods of the manuscript.
 
 ## Citation
 
-If you use this code, please cite the manuscript (details will be added on acceptance) and, per the
-PhysioNet terms, the datasets themselves and the PhysioNet paper.
+See `CITATION.cff`. Please also cite MIMIC-IV-ECHO, MIMIC-IV, PhysioNet and EchoXFlow.
 
 ## Licence
 
-Code: MIT (see `LICENSE`). The licence covers **this code only**. It confers no rights whatsoever
-over MIMIC-IV-ECHO or MIMIC-IV, which remain governed by their own data use agreements.
+Code: MIT (see `LICENSE`). The licence covers **this code only** and confers no rights over MIMIC-IV-ECHO,
+MIMIC-IV or EchoXFlow, which remain governed by their own terms.

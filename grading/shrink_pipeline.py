@@ -16,7 +16,7 @@ Kullanım:
       --out-dir <out> --limit 20 --preview
   # VM (GCS'ten indirerek stream):
   python3 shrink_pipeline.py --gcs --manifest-dicom ~/mimic-echo/manifest_dicom.csv \
-      --out-dir <out> --billing-project <gcp-projeniz>
+      --out-dir <out> --billing-project mimicivecho
 
 Faz B (PanEcho view sınıflandırma) AYRI adım — bu script view-agnostic B-mode cine üretir;
 view etiketi sonra eklenir (Bölüm 6.3).
@@ -167,8 +167,7 @@ def main():
     ap.add_argument('--manifest', help='manifest_study.csv (etiketler)')
     ap.add_argument('--manifest-dicom', help='manifest_dicom.csv (GCS modu için)')
     ap.add_argument('--out-dir', required=True)
-    ap.add_argument('--billing-project', default=os.environ.get('GCP_BILLING_PROJECT', ''),
-                    help='requester-pays için GCP proje kimliğiniz')
+    ap.add_argument('--billing-project', default='mimicivecho')
     ap.add_argument('--size', type=int, default=112)
     ap.add_argument('--n-frames', type=int, default=32)
     ap.add_argument('--limit', type=int, default=0, help='0=hepsi (pilot için ör. 20)')

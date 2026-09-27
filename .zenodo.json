@@ -1,0 +1,18 @@
+{
+  "title": "Doppler-free triage for elevated left ventricular filling pressure from B-mode echocardiographic video (code, v2.0.0)",
+  "upload_type": "software",
+  "description": "Code, prespecified analysis plan, dated record of deviations and aggregate results for the development of a model estimating elevated left atrial pressure from B-mode echocardiographic video on MIMIC-IV-ECHO, and its zero-shot external validation on EchoXFlow. No restricted or patient-level data are included.",
+  "creators": [
+    {
+      "name": "Köksal, Fatih",
+      "orcid": "0000-0002-4197-4683",
+      "affiliation": "Department of Cardiology, University of Health Sciences, Bursa Yüksek İhtisas Training and Research Hospital, Bursa, Türkiye"
+    }
+  ],
+  "license": "MIT",
+  "keywords": ["echocardiography", "left atrial pressure", "diastolic function", "deep learning", "external validation", "MIMIC-IV-ECHO", "EchoXFlow"],
+  "related_identifiers": [
+    {"identifier": "10.13026/nrjh-5r77", "relation": "references", "scheme": "doi"},
+    {"identifier": "10.48550/arXiv.2605.05447", "relation": "references", "scheme": "doi"}
+  ]
+}

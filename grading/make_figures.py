@@ -737,8 +737,11 @@ def central(args):
     axb = fig.add_subplot(gs[3, :]); axb.axis('off')
     axb.add_patch(plt.Rectangle((0, 0.12), 1, 0.76, transform=axb.transAxes,
                                 facecolor='#eef4fd', edgecolor='none'))
-    axb.text(0.5, 0.5, 'Labels · splits · code · weights released', ha='center', va='center',
-             fontsize=FS_HEAD, fontweight='bold', color=SEQ[3])
+    # DİKKAT: "labels/splits released" DEMİYORUZ — MIMIC türevi hasta düzeyi veri, DUA yeniden
+    # dağıtımı yasaklıyor. Doğru iddia: KOD açık, her artefakt kimlik doğrulamalı erişimle
+    # yeniden üretilebilir.
+    axb.text(0.5, 0.5, 'Code released — every artefact reproducible from the source data',
+             ha='center', va='center', fontsize=FS_HEAD, fontweight='bold', color=SEQ[3])
 
     # ── JASE denetimi: 10 pt altı yazı ve piksel ölçüsü
     small = [tx.get_fontsize() for tx in fig.findobj(matplotlib.text.Text)

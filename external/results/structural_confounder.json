@@ -1,0 +1,95 @@
+{
+ "aciklama": "iç test seti; model skoru kalibre olasılık",
+ "tohum": 20260901,
+ "analizler": [
+  {
+   "ad": "yapı: LVMi + yaş + cinsiyet (LAVi HARİÇ — asıl analiz)",
+   "degiskenler": [
+    "LVMi",
+    "age",
+    "gender"
+   ],
+   "n": 430,
+   "olay": 84,
+   "auroc_yapisal": 0.7736,
+   "auroc_yapisal_ga": [
+    0.7183,
+    0.8238
+   ],
+   "auroc_model": 0.885,
+   "auroc_model_ga": [
+    0.8403,
+    0.9223
+   ],
+   "auroc_birlesik": 0.8862,
+   "delta_model_katkisi": 0.1123,
+   "delta_ga": [
+    0.0663,
+    0.1595
+   ],
+   "p_delta_sifir_veya_negatif": 0.0,
+   "skorun_yapiyla_aciklanan_payi_R2": 0.3284,
+   "duzeltilmis_OR_skor_logit_birimi": 2.874
+  },
+  {
+   "ad": "yapı: LVMi + LAVi + yaş + cinsiyet (LAVi etiketin bileşeni)",
+   "degiskenler": [
+    "LVMi",
+    "LAVi",
+    "age",
+    "gender"
+   ],
+   "n": 389,
+   "olay": 79,
+   "auroc_yapisal": 0.9185,
+   "auroc_yapisal_ga": [
+    0.8762,
+    0.957
+   ],
+   "auroc_model": 0.8853,
+   "auroc_model_ga": [
+    0.8416,
+    0.9247
+   ],
+   "auroc_birlesik": 0.936,
+   "delta_model_katkisi": 0.0175,
+   "delta_ga": [
+    0.0021,
+    0.0373
+   ],
+   "p_delta_sifir_veya_negatif": 0.0107,
+   "skorun_yapiyla_aciklanan_payi_R2": 0.5334,
+   "duzeltilmis_OR_skor_logit_birimi": 2.033
+  },
+  {
+   "ad": "yapı: LVMi + EF + yaş + cinsiyet (EF alt kümesi)",
+   "degiskenler": [
+    "LVMi",
+    "EF",
+    "age",
+    "gender"
+   ],
+   "n": 241,
+   "olay": 53,
+   "auroc_yapisal": 0.759,
+   "auroc_yapisal_ga": [
+    0.6898,
+    0.8253
+   ],
+   "auroc_model": 0.8878,
+   "auroc_model_ga": [
+    0.8314,
+    0.9359
+   ],
+   "auroc_birlesik": 0.8939,
+   "delta_model_katkisi": 0.135,
+   "delta_ga": [
+    0.0758,
+    0.1977
+   ],
+   "p_delta_sifir_veya_negatif": 0.0,
+   "skorun_yapiyla_aciklanan_payi_R2": 0.3476,
+   "duzeltilmis_OR_skor_logit_birimi": 3.037
+  }
+ ]
+}

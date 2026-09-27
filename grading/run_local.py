@@ -17,8 +17,7 @@ Kullanım:
     --manifest ~/mimic-echo/manifest_study.csv --out-dir ~/mimic-echo/npz \
     > ~/mimic-echo/run_local.log 2>&1 &
 """
-from __future__ import os
-import annotations
+from __future__ import annotations
 import argparse, csv, io, os, subprocess, sys, threading, time, glob
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor, as_completed
@@ -32,11 +31,7 @@ from shrink_pipeline import classify, process_clip   # pilotta doğrulanmış i�
 BUCKET = "mimic-iv-echo-1.0.physionet.org"
 GCS_PREFIX = f"gs://{BUCKET}/"
 URL = f"https://storage.googleapis.com/{BUCKET}/"
-# requester-pays için KENDİ GCP projenizin kimliği — ortam değişkeninden okunur:
-#   export GCP_BILLING_PROJECT=<projeniz>
 BILLING = os.environ.get("GCP_BILLING_PROJECT", "")
-if not BILLING:
-    raise SystemExit("GCP_BILLING_PROJECT tanımlı değil — requester-pays indirme için gerekli.")
 HEADER_BYTES = 131071          # header için ilk 128KB (yeterli, test edildi)
 
 # --- Session (büyük bağlantı havuzu) ---

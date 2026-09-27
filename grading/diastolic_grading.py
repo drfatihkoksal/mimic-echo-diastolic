@@ -19,7 +19,10 @@ MIMIC birim gerçekleri (profil doğrulandı):
   tr_velocity             : m/s   (PASP alanı `tv_est_pa_press_min` boş -> TR kullanılır)
   lvef                    : % ;  lvedd/septal_thickness/inf_lat_thickness: cm
 
-Eksik (MIMIC'te YOK): LARS, IVRT, Pulmonary Vein S/D  -> 2025 ikincil kutu LAVi'ye dayanır.
+Eksik (MIMIC'te YOK): LARS, IVRT, Pulmonary Vein S/D -> MIMIC'te 2025 ikincil kutu
+  fiilen LAVi'ye dayanir. secondary_box_2025() kilavuzun TAM kutusunu uygular
+  (LAVi / LARS / PV S/D, >=1 pozitif kurali; IVRT yedek). Bu degiskenleri tasiyan
+  kohortlarda kutu eksiksiz calisir; MIMIC'te sonuc degismez.
 """
 from __future__ import annotations
 import argparse, csv, gzip, math, os, re, sys
@@ -32,10 +35,11 @@ from datetime import datetime
 ECHO_DIR   = os.path.expanduser("~/mimic-echo")
 STUDY_LIST = os.path.join(ECHO_DIR, "echo-study-list.csv")
 STRUCTURED = os.path.join(ECHO_DIR, "structured-measurement.csv.gz")
-MIMIC_IV = os.environ.get("MIMIC_IV_DIR", "")   # export MIMIC_IV_DIR=/yol/mimic-iv-3.1          # echo v2.2 kaynaklı; v3.1 %100 kapsıyor
+MIMIC_IV   = "/data/mimic 4 3 1/mimic-iv-3.1"          # echo v2.2 kaynaklı; v3.1 %100 kapsıyor
 PATIENTS   = os.path.join(MIMIC_IV, "hosp", "patients.csv")
 DIAGNOSES  = os.path.join(MIMIC_IV, "hosp", "diagnoses_icd.csv")
-ECG_MM     = os.environ.get("MIMIC_ECG_MM", "")   # machine_measurements.csv (MIMIC-IV-ECG)
+ECG_MM     = ("/data/identity/mimic-iv-ecg-diagnostic-electrocardiogram-matched-subset-1.0/"
+              "mimic-iv-ecg-diagnostic-electrocardiogram-matched-subset-1.0/machine_measurements.csv")
 ECG_WINDOW_DAYS = 7    # eko-anı ritmi için en yakın ECG penceresi (temporal AF)
 RECORD_LIST = os.path.join(ECHO_DIR, "echo-record-list.csv")   # DICOM envanteri
 GCS_PREFIX  = "gs://mimic-iv-echo-1.0.physionet.org/"
@@ -93,6 +97,19 @@ def norm_cm(v):        # duvar/boyut (cm)
 def norm_decel(v):     # ms
     return v if (v is not None and 40 <= v <= 600) else None
 
+# --- 2025 ikincil kutu degiskenleri (MIMIC'te yok; dis kohortlardan gelir) ---
+def norm_lars(v):      # LA rezervuar strain, %
+    return v if (v is not None and 1 <= v <= 70) else None
+
+def norm_pvsd(v):      # pulmoner ven S/D orani, birimsiz
+    return v if (v is not None and 0.1 <= v <= 5.0) else None
+
+def norm_pvvel(v):     # pulmoner ven S veya D tepe hizi, cm/s
+    return v if (v is not None and 5 <= v <= 150) else None
+
+def norm_ivrt(v):      # izovolumik gevseme zamani, ms
+    return v if (v is not None and 20 <= v <= 200) else None
+
 # MIMIC measurement adı -> (kanonik anahtar, normalize fonksiyonu). Sadece TTE satırları.
 PARAM_MAP = {
     'mv_peak_e':           ('E',        norm_evel),
@@ -137,6 +154,10 @@ def derive(p):
     if es is not None and el is not None: p['e_avg'] = (es + el) / 2.0
     elif es is not None: p['e_avg'] = es
     elif el is not None: p['e_avg'] = el
+    # Pulmoner ven S/D - hazir oran yoksa bilesen hizlardan turet
+    pvs, pvd = p.get('PV_S'), p.get('PV_D')
+    if pvs is not None and pvd:
+        p.setdefault('PV_SD', pvs / pvd)
     # LAVi
     lav, bsa = p.get('LAvol'), p.get('BSA')
     if lav is not None and bsa: p['LAVi'] = lav / bsa
@@ -186,13 +207,77 @@ def tr_increased_2025(p):
     tr = p.get('TRvel')
     return (tr is not None and tr >= 2.8), (tr is not None)
 
-def secondary_box_2025(p):
-    """İkincil kutu: PV S/D≤0.67 / LARS≤18% / LAVi>34 (alt IVRT≤70).
-    MIMIC'te sadece LAVi mevcut. Döner: (elevated_bool, available_bool)."""
-    lavi = p.get('LAVi')
+# --- 2025 ikincil kutu esikleri (Nagueh 2025, JASE 38:537-569, Figure 3) -----
+IK_LAVI = 34.0     # mL/m2 ; >  pozitif
+IK_LARS = 18.0     # %     ; <= pozitif
+IK_PVSD = 0.67     # oran  ; <= pozitif  (= %40 sistolik dolum fraksiyonu)
+IK_IVRT = 70.0     # ms    ; <= pozitif  -- kilavuzda "Alternatively"
+
+def secondary_box_2025(p, pv_sadece_dusuk_ef=False):
+    """2025 ASE ikincil karar kutusu -- Nagueh 2025, Figure 3.
+
+    UCLU OLCUT ve KURAL (Figure 3, dogrudan):
+        Pulmonary Vein S/D <= 0.67  or  LARS <= 18%  or  LAVi > 34 mL/m2
+        "None" -> Normal LAP        ">=1 present" -> Increased LAP
+    Yani olculebilenlerden EN AZ BIRI pozitifse LAP yuksektir; hicbiri pozitif
+    degilse LAP normaldir. Metin de aynisini soyler (s.555): "If LARS, pulmonary
+    vein ... ratio, IVRT, and LAVi do not meet the cutoff threshold for elevated
+    LAP, then LAP is likely normal."
+
+    IVRT'nin konumu: Figure 3'te "Alternatively IVRT <= 70 ms" olarak uclunun
+    ALTINDA yer alir; metinde de "LARS, pulmonary vein ... ratio, LAVi, or
+    ALTERNATIVELY IVRT" denir. Bu yuzden es deger dorduncu olcut olarak sayilmaz:
+    yalnizca ucluden hicbiri olculememisse devreye girer.
+
+    PV S/D'nin kosullu kullanimi (s.555): oran LV sistolik disfonksiyonunda en
+    guvenilirdir ve "should not be considered in normal subjects with normal
+    echocardiographic results, when the ratio can be <= 0.67". Bu kutuya yalnizca
+    birincil degiskenlerden en az biri anormalken inildigi icin degerlendirilen
+    hasta tanim geregi "normal ekokardiyografik bulgulu normal denek" DEGILDIR;
+    dolayisiyla varsayilan davranis PV S/D'yi olculdugu her yerde kullanmaktir.
+    pv_sadece_dusuk_ef=True verilirse olcut yalnizca EF < %50 olan calismalarda
+    uygulanir -- onceden tanimli duyarlilik analizi icin. Bu bir YORUM tercihidir
+    ve makalede boyle beyan edilmelidir.
+
+    GERIYE UYUMLULUK: yalniz LAVi mevcutken (MIMIC-IV-ECHO'nun durumu) karar eski
+    surumle birebir aynidir; LAVi de yoksa ve baska hicbir degisken yoksa
+    (False, False, ...) doner.
+
+    Doner: (yuksek, mevcut, detay)
+      detay: hangi olcut olculmus, hangisi pozitif, IVRT yedegine dusulmus mu.
+    """
+    lavi, lars, pvsd = p.get('LAVi'), p.get('LARS'), p.get('PV_SD')
+    ef = p.get('EF')
+
+    pv_kullanilabilir = pvsd is not None
+    pv_bastirildi = False
+    if pv_kullanilabilir and pv_sadece_dusuk_ef and not (ef is not None and ef < 50):
+        pv_kullanilabilir, pv_bastirildi = False, True
+
+    uclu = []                                        # (ad, pozitif_mi)
     if lavi is not None:
-        return (lavi > 34), True
-    return False, False        # hiçbir ikincil değişken yok -> güvenilir karar veremez
+        uclu.append(('LAVi', lavi > IK_LAVI))
+    if lars is not None:
+        uclu.append(('LARS', lars <= IK_LARS))
+    if pv_kullanilabilir:
+        uclu.append(('PV_SD', pvsd <= IK_PVSD))
+
+    detay = {'olculen': [a for a, _ in uclu],
+             'pozitif': [a for a, poz in uclu if poz],
+             'ivrt_yedegi': False,
+             'pv_bastirildi': pv_bastirildi}
+
+    if uclu:
+        return any(poz for _, poz in uclu), True, detay
+
+    # ucluden hicbiri yok -> kilavuzun "Alternatively IVRT" yedegi
+    ivrt = p.get('IVRT')
+    if ivrt is not None:
+        detay.update(olculen=['IVRT'], ivrt_yedegi=True,
+                     pozitif=['IVRT'] if ivrt <= IK_IVRT else [])
+        return (ivrt <= IK_IVRT), True, detay
+
+    return False, False, detay   # hicbir ikincil degisken yok -> karar verilemez
 
 def grade_ase2025(p, age=None):
     """
@@ -234,17 +319,19 @@ def grade_ase2025(p, age=None):
         if EA is not None and EA <= 0.8:
             lap = 'normal'                              # -> Grade 1
         else:                                           # E/A>0.8 (ya da E/A yok) -> ikincil kutu
-            elev, av = secondary_box_2025(p)
+            elev, av, ikd = secondary_box_2025(p)
+            r['ikincil_kutu'] = ikd
             if not av:
                 r.update(grade='Incomputable', lap=None, dd_present=e_red,
-                         reason='ikincil kutu degiskeni (LAVi) yok')
+                         reason='ikincil kutu degiskeni yok')
                 return r
             lap = 'elevated' if elev else 'normal'
     else:                                               # tek ↑E/e' / tek ↑TR / herhangi 2
-        elev, av = secondary_box_2025(p)
+        elev, av, ikd = secondary_box_2025(p)
+        r['ikincil_kutu'] = ikd
         if not av:
             r.update(grade='Incomputable', lap=None, dd_present=None,
-                     reason='ikincil kutu degiskeni (LAVi) yok')
+                     reason='ikincil kutu degiskeni yok')
             return r
         lap = 'elevated' if elev else 'normal'
 

@@ -41,7 +41,7 @@ from shrink_pipeline import classify
 BUCKET = "mimic-iv-echo-1.0.physionet.org"
 GCS_PREFIX = f"gs://{BUCKET}/"
 URL = f"https://storage.googleapis.com/{BUCKET}/"
-BILLING = os.environ.get("GCP_BILLING_PROJECT", "")   # export GCP_BILLING_PROJECT=<projeniz>
+BILLING = os.environ.get("GCP_BILLING_PROJECT", "")
 
 SESSION = requests.Session()
 SESSION.mount("https://", requests.adapters.HTTPAdapter(pool_maxsize=64, pool_connections=64))

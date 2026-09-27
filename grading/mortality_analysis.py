@@ -33,7 +33,7 @@ from lifelines import KaplanMeierFitter, CoxPHFitter
 from lifelines.statistics import logrank_test, multivariate_logrank_test
 from lifelines.utils import concordance_index
 
-ROOT = os.environ.get("MIMIC_IV_DIR", "")   # export MIMIC_IV_DIR=/yol/mimic-iv-3.1
+ROOT = "/data/mimic 4 3 1/mimic-iv-3.1"
 GR = ['Normal', 'Grade1', 'Grade2', 'Grade3']
 HORIZON = 365
 DEFAULT_PREDS = os.path.expanduser('~/mimic-echo/runs/c1_panecho/test_predictions.csv')
