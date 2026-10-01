@@ -127,6 +127,52 @@ def cohorts():
     }
 
 
+def adaptation(thr, lo, hi):
+    """Ön-tanımlı ikincil analizler (analysis_plan §5.6), 2026-10-01'de koşuldu (analysis_log Ek 10).
+    (1) Dış kohortta yeniden kalibrasyon: kilitli olasılıkların logit'i üzerinde lojistik yeniden kalibrasyon
+        (kesişim + eğim), 10 katlı tabakalı çapraz uydurma; her muayenenin olasılığı kendisini görmeyen
+        katlardan gelir. Kilitli eşik aynen uygulanır.
+    (2) Histogram eşleme: histmatch_external.py çıktısı, kilitli kalibratör ve eşikle."""
+    from sklearn.model_selection import StratifiedKFold
+    out = {'yeniden_kalibrasyon': {'yontem': 'lojistik (kesisim+egim), 10 katli tabakali capraz uydurma',
+                                   'kohortlar': {}},
+           'histogram_esleme': {'kohortlar': {}}}
+    cs = cohorts()
+    for name in ('dis_Ee_birincil', 'dis_ASE_LAP'):
+        y, p, _ = cs[name]
+        z = logit(p).reshape(-1, 1); pr = np.empty(len(y))
+        for tr, te in StratifiedKFold(10, shuffle=True, random_state=SEED).split(z, y):
+            pr[te] = LogisticRegression(C=1e6).fit(z[tr], y[tr]).predict_proba(z[te])[:, 1]
+        full = LogisticRegression(C=1e6).fit(z, y)
+        d = describe(y, pr, pr, thr, lo, hi, np.random.default_rng(SEED))
+        d['tam_veri_katsayilari'] = {'kesisim': round(float(full.intercept_[0]), 3), 'egim': round(float(full.coef_[0][0]), 3)}
+        out['yeniden_kalibrasyon']['kohortlar'][name] = d
+    hp = os.path.join(HERE, 'external_predictions_histmatch.csv')
+    if os.path.exists(hp):
+        ex = list(csv.DictReader(open(hp)))
+        for name, col in (('dis_Ee_birincil', 'y_birincil'), ('dis_ASE_LAP', 'y_ikincil')):
+            r = [x for x in ex if x[col] != '' and x['af_excluded'] == '0']
+            y = np.array([int(x[col]) for x in r]); p = np.array([float(x['p_kalibre']) for x in r])
+            praw = np.array([float(x['p_ham']) for x in r])
+            d = describe(y, p, praw, thr, lo, hi, np.random.default_rng(SEED))
+            # eşleştirilmiş bootstrap: aynı muayeneler, histogram eşlemeli − zero-shot AUROC
+            base = {x['exam_id']: float(x['p_kalibre']) for x in csv.DictReader(open(os.path.join(HERE, 'external_predictions.csv')))}
+            p0 = np.array([base[x['exam_id']] for x in r]); rng = np.random.default_rng(SEED); df = []
+            for _ in range(N_BOOT):
+                i = rng.integers(0, len(y), len(y))
+                if len(set(y[i])) < 2:
+                    continue
+                df.append(roc_auc_score(y[i], p[i]) - roc_auc_score(y[i], p0[i]))
+            d['zero_shot_farki'] = {'fark': round(float(roc_auc_score(y, p) - roc_auc_score(y, p0)), 4),
+                                    'ga': [round(float(np.percentile(df, 2.5)), 4), round(float(np.percentile(df, 97.5)), 4)]}
+            out['histogram_esleme']['kohortlar'][name] = d
+    for k, v in out.items():
+        for n2, d in v['kohortlar'].items():
+            print(f"{k:20s} {n2:16s} n={d['n']} AUROC={d['auroc']} {d['auroc_ga']} egim={d['kalibrasyon_egimi']} "
+                  f"kesisim={d['kesisim']} brier={d['brier']} esikte={d['esikte']}", flush=True)
+    return out
+
+
 def main():
     L = json.load(open(os.path.expanduser('~/mimic-echo/runs/b2_binary/binary_results.json')))
     thr = L['esik']; lo = L['gri_bolge']['rule_out_alti']; hi = L['gri_bolge']['rule_in_ustu']
@@ -215,6 +261,7 @@ def main():
     res['ic_test_Ee_hedef_uyumsuz'] = {'n': int(len(yy)), 'olay': int(yy.sum()),
                                        'auroc': round(float(roc_auc_score(yy, pp)), 4),
                                        'auroc_ga': boot_ci(yy, pp, roc_auc_score, rng)}
+    res['ikincil_uyarlama'] = adaptation(thr, lo, hi)
     json.dump(res, open(OUT, 'w'), indent=1, ensure_ascii=False)
     print(f"\n-> {OUT}")
     print('kırpılma:', [(t['tersil'], t['auroc'], t['auroc_ga']) for t in res['kirpilma']['tersiller']])

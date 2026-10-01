@@ -69,3 +69,40 @@ The second blinded round (plan §7) was performed 27 days after the first, in a 
 order, with the reference classification removed from the page and panels regenerated after the PW fix
 above. In two examinations two tricuspid panels shared one decision key in both rounds, so agreement is
 reported over 103 assessment units. Decisions of both rounds are in `external/qc/`.
+
+## 2026-10-01 — Prespecified adaptation analyses that had not been run (plan §5.6)
+
+**Plan.** §5.6 states that preprocessing harmonisation (histogram matching) and recalibration in the external
+cohort are reported as secondary analyses, so that the contribution of domain shift can be separated from a
+failure to transfer.
+
+**What happened.** Neither analysis had been implemented. The omission was found while completing the
+TRIPOD+AI checklist. Both were run on 2026-10-01, after the primary results were known.
+
+**Method.** The plan did not specify the harmonisation method. The following single specification was
+written before these analyses were run, and no other variant was evaluated:
+
+- *Recalibration* (`canonical_results.py`, `adaptation`): logistic recalibration (intercept and slope) of the
+  logit of the locked probabilities, with 10-fold stratified cross-fitting; the locked threshold is applied
+  unchanged.
+- *Histogram matching* (`histmatch_external.py`): the reference grey-level distribution is taken from the
+  pixels inside the ultrasound sector (non-zero maximum over time) of the 16 model frames of 2,000 randomly
+  selected development training clips (seed 20261001). Each external clip's in-sector distribution is mapped
+  to it by cumulative-distribution matching; pixels outside the sector stay at zero. Model, calibrator,
+  threshold and indeterminate zone are unchanged.
+
+**Effect.** No previously reported number changed; results are under `ikincil_uyarlama` in
+`external/results/canonical_results.json`. The zero-shot analysis remains primary.
+
+| Endpoint | Analysis | AUROC (95% CI) | Paired difference vs zero-shot | Calibration slope | CITL |
+|---|---|---|---|---|---|
+| Elevated E/e′ | Recalibration | 0.825 (0.772–0.875) | — | 0.96 | −0.01 |
+| Elevated E/e′ | Histogram matching | 0.854 (0.805–0.897) | +0.026 (0.006 to 0.046) | 0.85 | −0.25 |
+| Guideline-defined elevated LAP | Recalibration | 0.917 (0.854–0.966) | — | 0.96 | −0.01 |
+| Guideline-defined elevated LAP | Histogram matching | 0.949 (0.912–0.978) | +0.025 (0.002 to 0.057) | 1.23 | −1.17 |
+
+## 2026-10-01 — Correction of a descriptive claim
+
+Earlier manuscript versions described the external cohort as acquired on another vendor's equipment. Both
+cohorts were acquired on GE systems (MIMIC-IV-ECHO: Vivid E90, E95 and S7; EchoXFlow: Vivid E95 Ultra
+Edition). The claim has been corrected to country, institution and acquisition format. No analysis changed.

@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-title: "Doppler-free triage for elevated left ventricular filling pressure from B-mode echocardiographic video"
+title: "Doppler-free triage for elevated left atrial pressure from B-mode echocardiographic video"
 message: If you use this code, please cite it using the metadata below, together with the accompanying article.
 type: software
-version: 2.0.0
-date-released: 2026-09-27
-doi: 10.5281/zenodo.22994945
+version: 2.1.0
+date-released: 2026-10-01
+doi: 10.5281/zenodo.22994944
 identifiers:
   - type: doi
     value: 10.5281/zenodo.22994945
