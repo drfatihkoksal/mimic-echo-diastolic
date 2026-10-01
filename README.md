@@ -1,14 +1,14 @@
-# Doppler-free triage for elevated left ventricular filling pressure
+# Doppler-free triage for elevated left atrial pressure
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22994945.svg)](https://doi.org/10.5281/zenodo.22994945)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22994944.svg)](https://doi.org/10.5281/zenodo.22994944)
 
 Code for estimating **elevated left atrial pressure from B-mode echocardiographic video alone — no Doppler
 at inference** — developed on the public MIMIC-IV-ECHO dataset and validated, without adaptation, on the
 independent public EchoXFlow dataset (Akershus University Hospital, Norway).
 
-This repository accompanies the manuscript *"Doppler-Free Triage for Elevated Left Ventricular Filling
-Pressure from B-Mode Echocardiographic Video: Development on Open Data with Independent External
-Validation"* (Köksal F., submitted). An earlier four-class grading version of this work is preserved in
+This repository accompanies the manuscript *"Doppler-Free Triage for Elevated Left Atrial Pressure from
+B-Mode Echocardiographic Video: Development on Open Data with Independent External Validation on Raw
+Beamspace Recordings"* (Köksal F., submitted). An earlier four-class grading version of this work is preserved in
 the git history (commit `816a474`).
 
 | | Internal test (MIMIC-IV-ECHO) | External (EchoXFlow) |
@@ -17,7 +17,11 @@ the git history (commit `816a474`).
 | Elevated E/e′ (prespecified primary, external) | AUROC 0.824 (0.774–0.868) | AUROC 0.829 (0.775–0.878), n = 303 |
 
 All reported numbers are produced by `external/canonical_results.py` (fixed seed, 4,000 bootstrap
-resamples) and stored in [`external/results/`](external/results/).
+resamples) and stored in [`external/results/`](external/results/). Prespecified secondary analyses
+(plan §5.6, run in v2.1.0): cross-fitted recalibration in the external cohort restores calibration without
+changing discrimination; histogram matching of image intensity raises the external AUROC to 0.854 (elevated
+E/e′) and 0.949 (guideline LAP). The zero-shot results above remain primary; see
+[`docs/DEVIATIONS.md`](docs/DEVIATIONS.md).
 
 ---
 
@@ -80,6 +84,7 @@ python3 finalize_binary.py --run-dir ~/mimic-echo/runs/b2_binary
 | **All reported numbers (single source)** | `canonical_results.py` |
 | Calibration, decision curves, prevalence transfer, structural confounding, Table 1 | `calibration_analysis.py`, `decision_curve.py`, `prevalence_transfer.py`, `structural_confounder.py`, `table1.py` |
 | Mitral sensitivity analysis cohort | `mitral_trace_exams.py` |
+| Intensity harmonisation (histogram matching) inference, plan §5.6 | `histmatch_external.py` |
 | Figures | `make_external_figures.py` |
 | Blinded reader review of the reference standard | `make_qc_panels2.py`, `build_qc_page.py`, `build_qc_page_tur2.py`; plan and decisions in `qc/` |
 
@@ -89,6 +94,7 @@ python3 external/spectral_quality.py && python3 external/clipping_covariate.py
 python3 external/render_echoxflow.py && python3 grading/view_classify.py --npz-dir ~/echoxflow-render/npz
 python3 external/run_external.py
 python3 external/mitral_trace_exams.py
+python3 external/histmatch_external.py
 python3 external/canonical_results.py
 python3 external/calibration_analysis.py && python3 external/decision_curve.py && python3 external/prevalence_transfer.py
 python3 external/make_external_figures.py
@@ -114,7 +120,7 @@ described in the Methods of the manuscript.
 
 ## Citation
 
-Archived release v2.0.0: https://doi.org/10.5281/zenodo.22994945 (all versions: https://doi.org/10.5281/zenodo.22994944).
+All archived versions: https://doi.org/10.5281/zenodo.22994944 (resolves to the latest release; v2.0.0: https://doi.org/10.5281/zenodo.22994945).
 See `CITATION.cff`. Please also cite MIMIC-IV-ECHO, MIMIC-IV, PhysioNet and EchoXFlow.
 
 ## Licence
