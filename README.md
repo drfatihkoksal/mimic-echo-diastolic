@@ -6,18 +6,23 @@ Code for estimating **elevated left atrial pressure from B-mode echocardiographi
 at inference** — developed on the public MIMIC-IV-ECHO dataset and validated, without adaptation, on the
 independent public EchoXFlow dataset (Akershus University Hospital, Norway).
 
-This repository accompanies the manuscript *"Doppler-Free Triage for Elevated Left Atrial Pressure from
-B-Mode Echocardiographic Video: Development on Open Data with Independent External Validation on Raw
-Beamspace Recordings"* (Köksal F., submitted). An earlier four-class grading version of this work is preserved in
-the git history (commit `816a474`).
+An earlier four-class grading version of this work is preserved in the git history (commit `816a474`).
 
 | | Internal test (MIMIC-IV-ECHO) | External (EchoXFlow) |
 |---|---|---|
-| Guideline-defined elevated LAP | AUROC 0.882 (0.839–0.920), n = 438 | AUROC 0.924 (0.867–0.968), n = 191 |
-| Elevated E/e′ (prespecified primary, external) | AUROC 0.824 (0.774–0.868) | AUROC 0.829 (0.775–0.878), n = 303 |
+| Elevated E/e′ (prespecified primary external target) | AUROC 0.824 (0.776–0.868), n = 437 | AUROC 0.829 (0.776–0.878), n = 303 |
+| Guideline-defined elevated LAP | AUROC 0.885 (0.840–0.924), n = 437 | AUROC 0.909 (0.846–0.961), n = 117 |
 
-All reported numbers are produced by `external/canonical_results.py` (fixed seed, 4,000 bootstrap
-resamples) and stored in [`external/results/`](external/results/). Prespecified secondary analyses
+The guideline target can be defined externally only where the primary variables alone decide the label; the
+external row refers to the examinations with all three primary variables measured (28 events). In the
+prespecified set of 191 examinations the AUROC was 0.924 (0.867–0.968). Internal values use labels corrected
+for a threshold-comparison error (v3.0.0; see [`docs/DEVIATIONS.md`](docs/DEVIATIONS.md)); with the original
+labels the internal AUROC was 0.882 (0.839–0.921), n = 438.
+
+The prespecified analyses are produced by `external/canonical_results.py` and stored in
+[`external/results/`](external/results/). The post hoc analyses added in v3.0.0 are produced by
+`external/posthoc/run_posthoc.py` and stored in [`external/posthoc/`](external/posthoc/) (fixed seed, 4,000
+bootstrap resamples in both). Prespecified secondary analyses
 (plan §5.6, run in v2.1.0): cross-fitted recalibration in the external cohort restores calibration without
 changing discrimination; histogram matching of image intensity raises the external AUROC to 0.854 (elevated
 E/e′) and 0.949 (guideline LAP). The zero-shot results above remain primary; see
@@ -30,7 +35,8 @@ E/e′) and 0.949 (guideline LAP). The zero-shot results above remain primary; s
 - [`docs/analysis_plan.md`](docs/analysis_plan.md) — written before any external data were analysed:
   endpoints, reference standards, cohort rules, decision parameters, the quality covariate and its
   tertile boundaries.
-- [`docs/DEVIATIONS.md`](docs/DEVIATIONS.md) — the dated record of every departure from that plan.
+- [`docs/DEVIATIONS.md`](docs/DEVIATIONS.md) — the dated record of every departure from that plan, and of
+  every post hoc analysis added after the primary results were known.
 - [`docs/parameter_availability.md`](docs/parameter_availability.md) — which 2025 ASE variables were
   available in each cohort, and the decision rules applied.
 
@@ -100,6 +106,30 @@ python3 external/calibration_analysis.py && python3 external/decision_curve.py &
 python3 external/make_external_figures.py
 ```
 
+### Post hoc analyses — `external/posthoc/`
+
+| Analysis | Script | Results |
+|---|---|---|
+| Corrected labels, operating points, main external set, comparison with measured LAVI, subgroups, resampling of patients (single script) | `run_posthoc.py` | `posthoc_results.json` |
+| Automated left atrial volume from the pretrained encoder | `panecho_la.py` | in `posthoc_results.json` |
+| Retraining with and without LAVI supervision | `run_ablation_chain.sh`, `infer_ablation.py` | in `posthoc_results.json` |
+| Locked model applied to studies outside the guideline cohort | `run_a4_chain.sh`, `a4_pipeline.py` | in `posthoc_results.json` |
+| Availability of invasive pressure | `a11_wedge_count.py` | `a11_wedge_count.json` |
+| Exported calipers against the stored Doppler envelope; rescaling scenarios | `pw_scale_check.py` | `pw_scale_results.json` |
+| Caliper-free tissue-Doppler check in both cohorts | `tdi_scale_check.py` | `tdi_scale_results.json` |
+| Comparison with the later release of EchoXFlow | `release_compare.py` | `release_compare.json` |
+| Summary of the reference-standard review | `qc_yazar_ozet.py` | `qc_yazar_ozet.json` |
+| Cohort table with corrected labels; figures | `table1_v3.py`, `make_figures.py` | `table1_v3.json`, `table1_v3.md` |
+
+```bash
+python3 external/posthoc/run_posthoc.py
+python3 external/posthoc/pw_scale_check.py measure && python3 external/posthoc/pw_scale_check.py summarize
+python3 external/posthoc/pw_scale_check.py scenarios
+python3 external/posthoc/tdi_scale_check.py mimic && python3 external/posthoc/tdi_scale_check.py echox
+python3 external/posthoc/tdi_scale_check.py summarize
+python3 external/posthoc/table1_v3.py && python3 external/posthoc/make_figures.py figures/
+```
+
 Scripts run from the project root. Paths default to `~/mimic-echo/`, `~/echoxflow-render/` and
 `echoxflow/`; machine-specific roots can be set with `MIMIC_IV_ROOT`, `MIMIC_ECHO_DICOM_ROOT` and
 `GCP_BILLING_PROJECT`.
@@ -112,11 +142,11 @@ Python 3.13, PyTorch 2.11 (CUDA 12.8), scikit-learn, pydicom, OpenCV, zarr, numc
 (Vukadinovic et al., *Nature* 2025). Neither is vendored here. EchoXFlow reading and scan conversion use
 the dataset's reference implementation (<https://github.com/Ahus-AIM/EchoXFlow>).
 
-## Use of a large language model
+## Use of an AI coding agent
 
-A large language model (Claude, Anthropic) operated as a coding and analysis agent and wrote and executed
-much of this code under the author's direction. Its role and the human quality control applied are
-described in the Methods of the manuscript.
+An AI coding agent wrote and executed much of this code under the author's direction. The study design, the
+analysis plan and every analytical decision were the author's, and each implementation detail the plan did
+not specify was reviewed and approved by the author before use.
 
 ## Citation
 

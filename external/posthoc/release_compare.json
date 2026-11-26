@@ -1,0 +1,46 @@
+{
+ "uretim": "external/revision/release_compare.py",
+ "not": "POST HOC (analysis_log Ek 25, Ek 28). Rahatlık örneklemi: incelenen 30 muayeneden dokuzu.",
+ "revizyon_analiz_edilen": "d907c536cae16750b9e46f269a27befd4979ebdd",
+ "revizyon_yeni": "696248bcb5cb0b3cd40e84af1f8343975e3632c3",
+ "muayene": 9,
+ "sema_yeni": {
+  "EchoXFlow-2": 476
+ },
+ "okunamayan_olcum": 0,
+ "eslesmeyen_olcum": 0,
+ "gruplar": {
+  "CW": {
+   "eski_arti_ofset": 1820,
+   "degismemis": 0,
+   "sifirlanmis": 0,
+   "diger": 0,
+   "nokta": 1820
+  },
+  "CW_TR_Vmax": {
+   "eski_arti_ofset": 11,
+   "degismemis": 0,
+   "sifirlanmis": 0,
+   "diger": 0,
+   "nokta": 11
+  },
+  "PW_bf_esit_rbf": {
+   "eski_arti_ofset": 0,
+   "degismemis": 1524,
+   "sifirlanmis": 2,
+   "diger": 0,
+   "nokta": 1526
+  },
+  "PW_bf_farkli_rbf": {
+   "eski_arti_ofset": 0,
+   "degismemis": 0,
+   "sifirlanmis": 0,
+   "diger": 0,
+   "nokta": 0
+  }
+ },
+ "yeni_ust_veri_isaretleri": {
+  "angle_correction_applied=unknown": 128,
+  "velocity_reference=native_scanner_unresolved": 128
+ }
+}

@@ -16,7 +16,7 @@ Net fayda = TP/n − (FP/n)·p_t/(1−p_t). "Gönder" = tam Doppler protokolüne
 | %50 | **+0.0571** | -0.6119 | 0,0000 | +0.0571 |
 
 Model, incelenen tüm eşik olasılığı aralığında (%2–%70) her iki varsayılana da üstün.
-Kilitli eşikte (%12,9): net fayda +0.1429, en iyi varsayılana göre kazanç +0.0693 — kaçırılan vaka artışı olmadan 1.000 çalışmada gereksiz ileri tetkikte **470 azalma**.
+Kilitli eşikte (%12,9): net fayda +0.1427, en iyi varsayılana göre kazanç +0.0676 — kaçırılan vaka artışı olmadan 1.000 çalışmada gereksiz ileri tetkikte **458 azalma**.
 
 ## dış — E/e′ (ön-tanımlı birincil)  (n=303, prevalans %25.1)
 
@@ -32,7 +32,7 @@ Kilitli eşikte (%12,9): net fayda +0.1429, en iyi varsayılana göre kazanç +0
 | %50 | **+0.0231** | -0.4983 | 0,0000 | +0.0231 |
 
 Model her iki varsayılana da yalnız **%4 eşik olasılığından itibaren** üstün; altında "herkesi gönder" daha iyidir.
-Kilitli eşikte (%12,9): net fayda +0.1777, en iyi varsayılana göre kazanç +0.0388 — kaçırılan vaka artışı olmadan 1.000 çalışmada gereksiz ileri tetkikte **263 azalma**.
+Kilitli eşikte (%12,9): net fayda +0.1781, en iyi varsayılana göre kazanç +0.0378 — kaçırılan vaka artışı olmadan 1.000 çalışmada gereksiz ileri tetkikte **256 azalma**.
 
 ## dış — ASE LAP  (n=191, prevalans %14.7)
 
@@ -48,5 +48,5 @@ Kilitli eşikte (%12,9): net fayda +0.1777, en iyi varsayılana göre kazanç +0
 | %50 | **+0.0209** | -0.7068 | 0,0000 | +0.0209 |
 
 Model, incelenen tüm eşik olasılığı aralığında (%2–%70) her iki varsayılana da üstün.
-Kilitli eşikte (%12,9): net fayda +0.1041, en iyi varsayılana göre kazanç +0.0850 — kaçırılan vaka artışı olmadan 1.000 çalışmada gereksiz ileri tetkikte **576 azalma**.
+Kilitli eşikte (%12,9): net fayda +0.1044, en iyi varsayılana göre kazanç +0.0838 — kaçırılan vaka artışı olmadan 1.000 çalışmada gereksiz ileri tetkikte **568 azalma**.
 

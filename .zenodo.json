@@ -1,7 +1,7 @@
 {
-  "title": "Doppler-free triage for elevated left atrial pressure from B-mode echocardiographic video (code, v2.1.0)",
+  "title": "Doppler-free triage for elevated left atrial pressure from B-mode echocardiographic video (code, v3.0.0)",
   "upload_type": "software",
-  "description": "Code, prespecified analysis plan, dated record of deviations and aggregate results for the development of a model estimating elevated left atrial pressure from B-mode echocardiographic video on MIMIC-IV-ECHO, and its zero-shot external validation on EchoXFlow. No restricted or patient-level data are included.",
+  "description": "Code, prespecified analysis plan, dated record of deviations and post hoc analyses, and aggregate results for the development of a model estimating elevated left atrial pressure from B-mode echocardiographic video on MIMIC-IV-ECHO, and its zero-shot external validation on EchoXFlow. No restricted or patient-level data are included.",
   "creators": [
     {
       "name": "Köksal, Fatih",

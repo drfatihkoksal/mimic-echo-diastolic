@@ -1,0 +1,56 @@
+{
+ "kaynak": "external/qc_tur2_kararlar.csv",
+ "muayene": 30,
+ "tum": {
+  "birim": 103,
+  "dogru": 95,
+  "yanlis": 5,
+  "belirsiz": 2,
+  "degerlendirilmedi": 1,
+  "degerlendirilen": 102,
+  "yanlis_oran": 0.049,
+  "yanlis_ga": [
+   0.0211,
+   0.1097
+  ]
+ },
+ "TR": {
+  "birim": 19,
+  "dogru": 16,
+  "yanlis": 2,
+  "belirsiz": 1,
+  "degerlendirilmedi": 0,
+  "degerlendirilen": 19,
+  "yanlis_oran": 0.1053,
+  "yanlis_ga": [
+   0.0294,
+   0.3139
+  ]
+ },
+ "doku_Doppler": {
+  "birim": 55,
+  "dogru": 54,
+  "yanlis": 0,
+  "belirsiz": 0,
+  "degerlendirilmedi": 1,
+  "degerlendirilen": 54,
+  "yanlis_oran": 0.0,
+  "yanlis_ga": [
+   0.0,
+   0.0664
+  ]
+ },
+ "mitral_akim": {
+  "birim": 29,
+  "dogru": 25,
+  "yanlis": 3,
+  "belirsiz": 1,
+  "degerlendirilmedi": 0,
+  "degerlendirilen": 29,
+  "yanlis_oran": 0.1034,
+  "yanlis_ga": [
+   0.0358,
+   0.2639
+  ]
+ }
+}
