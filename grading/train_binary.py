@@ -2,9 +2,9 @@
 """
 İkili eğitim: yüksek sol atriyal basınç var/yok (2025 ASE `lap`).
 
-Pivot gerekçesi: JASE hakemleri ve editörü 4-sınıf derecelendirmenin mütevazı
-kaldığını, modelin asıl olarak klinik anlamlı disfonksiyon için bir tarama/triyaj
-aracı olduğunu belirtti. Sıralı görev tamamen bırakıldı.
+Gerekçe: 4-sınıf derecelendirmenin performansı mütevazı kaldı; model asıl olarak klinik
+anlamlı disfonksiyon için bir triyaj aracı olarak değerlendirilir. Sıralı görev tamamen
+bırakıldı.
 
 Tasarım notları:
 - Kohort ve hasta düzeyi bölmeler ÖNCEKİYLE BİREBİR AYNI (3065 çalışma), yalnızca
@@ -14,7 +14,7 @@ Tasarım notları:
   (tek mantık), corn_predict'in kümülatif çıktısı doğrudan P(yüksek LAP).
 - Model seçimi val AUROC ile (ikili görevde kappa kötü bir seçim ölçütüdür).
 - EŞİK YALNIZCA VAL'DE seçilir ve kilitlenir; test ve dış kohorta değiştirilmeden
-  uygulanır (JASE Hakem 1 bunu açıkça sordu). Ayrıca iki eşikli gri bölge
+  uygulanır. Ayrıca iki eşikli gri bölge
   (rule-out / belirsiz / rule-in) hesaplanır.
 - Aux regresyon başlığı yalnızca eğitim sinyali olarak korunur; çıkarımda ölçüm yok.
 """

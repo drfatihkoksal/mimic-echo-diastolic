@@ -8,7 +8,7 @@ Tutulmuş iç test setinde ölçülen özellikler: duyarlılık **0.918**, özg�
 
 | prevalans | ortam | PPD | NPD | yanlış pozitif | kaçırılan (YN) | pozitif çıkan |
 |---|---|---|---|---|---|---|
-| %2.0 | genel popülasyon taraması (Hakem 1 örneği) | **0.059** | 0.998 | 292 | 2 | 310 |
+| %2.0 | genel popülasyon taraması | **0.059** | 0.998 | 292 | 2 | 310 |
 | %5.0 | düşük riskli ayaktan hasta | **0.140** | 0.994 | 283 | 4 | 328 |
 | %10.0 | seçilmemiş ayaktan eko | **0.255** | 0.987 | 268 | 8 | 359 |
 | %19.4 | MIMIC-IV-ECHO iç kohort (gözlenen) | **0.426** | 0.973 | 240 | 16 | 418 |
@@ -32,7 +32,7 @@ Rule-out: eşiğin altı, ileri tetkik gerekmez. Belirsiz: tam Doppler protokol�
 
 ## Okunuşu
 
-- Hakem 1 haklıdır: %2 prevalansta tek eşikle PPD 0.059, yani pozitiflerin %94'i yanlış pozitif olur. Bu model genel popülasyon taraması için uygun değildir ve öyle bir iddia edilmemektedir.
+- %2 prevalansta tek eşikle PPD 0.059, yani pozitiflerin %94'i yanlış pozitif olur. Bu model genel popülasyon taraması için uygun değildir ve öyle bir iddia edilmemektedir.
 - Hedeflenen kullanım eko laboratuvarında triyajdır; oradaki prevalans %15–25 aralığındadır (iki kohortta gözlenen). O aralıkta PPD 0.35–0.51, NPD 0.96–0.98.
 - Klinik değer asıl olarak DIŞLAMADADIR: gri bölge stratejisinde rule-out kolu yüksek NPD ile çalışır ve 1.000 çalışmanın 543'ini (iç kohort prevalansında) ileri tetkikten muaf tutar.
 - Belirsiz kalanlar zaten yapılması gereken şeye, tam Doppler protokolüne yönlendirilir; yani bu strateji hiçbir hastayı değerlendirmesiz bırakmaz.

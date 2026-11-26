@@ -2,13 +2,9 @@
 """
 Prevalans transfer tablosu.
 
-JASE Hakem 1: "with the reported sensitivity of 0.88 and specificity of 0.78, a
-prevalence of 2% in a general-population screening setting would yield a PPV of only
-approximately 8%... The authors should discuss whether such performance is acceptable
-for a screening test."
-
-İtiraz haklıdır ve cevabı testin özelliklerini değiştirmek değil, kullanım yerini
-doğru tanımlamaktır. Bu betik kilitli çalışma noktasının duyarlılık/özgüllüğünü
+Düşük prevalansta (ör. genel popülasyon taraması, %2) tek eşikli bir testin pozitif
+öngörü değeri çok düşer. Bunun karşılığı testin özelliklerini değiştirmek değil, kullanım
+yerini doğru tanımlamaktır. Bu betik kilitli çalışma noktasının duyarlılık/özgüllüğünü
 prevalans yelpazesine taşır ve iki stratejiyi karşılaştırır:
 
   (A) tek eşik           : pozitif / negatif
@@ -28,7 +24,7 @@ P_IC = round(_K['ic_test_ASE_LAP']['prevalans'], 3)
 P_LAP = round(_K['dis_ASE_LAP']['prevalans'], 3)
 P_EE = round(_K['dis_Ee_birincil']['prevalans'], 3)
 P_LO, P_HI = min(P_IC, P_LAP, P_EE), max(P_IC, P_LAP, P_EE)
-PREVS = [(0.02, 'genel popülasyon taraması (Hakem 1 örneği)'),
+PREVS = [(0.02, 'genel popülasyon taraması'),
          (0.05, 'düşük riskli ayaktan hasta'),
          (0.10, 'seçilmemiş ayaktan eko'),
          (P_IC, 'MIMIC-IV-ECHO iç kohort (gözlenen)'),
@@ -105,7 +101,7 @@ def main():
                    f'{g["belirsiz_n"]:.0f} | {g["rulein_n"]:.0f} ({g["rulein_PPD"]:.3f}) | '
                    f'{g["kacirilan_1000"]:.0f} |')
     out += ['', '## Okunuşu', '',
-            f'- Hakem 1 haklıdır: %2 prevalansta tek eşikle PPD '
+            f'- %2 prevalansta tek eşikle PPD '
             f'{transfer(r,0.02)[0]["PPD"]:.3f}, yani pozitiflerin '
             f'%{100*(1-transfer(r,0.02)[0]["PPD"]):.0f}\'i yanlış pozitif olur. '
             'Bu model genel popülasyon taraması için uygun değildir ve öyle bir iddia edilmemektedir.',
