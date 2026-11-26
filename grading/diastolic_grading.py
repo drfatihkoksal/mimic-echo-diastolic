@@ -207,7 +207,7 @@ def tr_increased_2025(p):
     tr = p.get('TRvel')
     return (tr is not None and tr >= 2.8), (tr is not None)
 
-# --- 2025 ikincil kutu esikleri (Nagueh 2025, JASE 38:537-569, Figure 3) -----
+# --- 2025 ikincil kutu esikleri (Nagueh 2025, J Am Soc Echocardiogr 38:537-569, Figure 3) -----
 IK_LAVI = 34.0     # mL/m2 ; >  pozitif
 IK_LARS = 18.0     # %     ; <= pozitif
 IK_PVSD = 0.67     # oran  ; <= pozitif  (= %40 sistolik dolum fraksiyonu)

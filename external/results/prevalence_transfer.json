@@ -19,7 +19,7 @@
  "satirlar": [
   {
    "prevalans": 0.02,
-   "ortam": "genel popülasyon taraması (Hakem 1 örneği)",
+   "ortam": "genel popülasyon taraması",
    "tek_esik": {
     "PPD": 0.05923086355217387,
     "NPD": 0.997613461967508,

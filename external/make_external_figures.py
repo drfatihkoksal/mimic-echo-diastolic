@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Dış validasyon şekilleri — JASE biçimi (7,2 inç, 300 dpi, Arial-metrikli Liberation Sans).
+Dış validasyon şekilleri (7,2 inç, 300 dpi, Arial-metrikli Liberation Sans).
 
 Şekil: ayırt etme / kalibrasyon / klinik fayda üçlüsü. Üç kohort üç kategorik renkle;
 renk kimliği taşır (kohort), çizgi stili stratejiyi taşır (model vs varsayılan).

@@ -2,7 +2,7 @@
 """
 Yapısal karıştırıcı analizi.
 
-Hakem itirazı (JASE Hakem 2): B-mode görüntü, diyastolik fonksiyon dışında prognostik
+Olası itiraz: B-mode görüntü, diyastolik fonksiyon dışında prognostik
 olarak anlamlı çok şey içerir — hipertrofi, boşluk yeniden şekillenmesi, atriyum
 büyüklüğü. EF'den bağımsız olmak, modelin diyastolik fonksiyona ÖZGÜ bir şey öğrendiğini
 kanıtlamaz.

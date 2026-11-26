@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-JASE figürleri — 300 dpi, basılı dergi geleneklerine göre.
+Şekiller — 300 dpi, basılı sayfa geleneklerine göre.
 
 Renk kararları (dataviz doğrulayıcısıyla test edildi):
   * Diyastolik grade ORDİNAL bir şiddet ölçüsüdür → kategorik palet değil, SIRALI (tek-hue,
@@ -38,7 +38,7 @@ STYLES = ['-', '--', '-.', ':']
 CAT = {'any': '#2a78d6', 'adv': '#eb6834'}
 INK, INK2, GRID = '#0b0b0b', '#52514e', '#d8d8d4'
 
-# JASE: "Arial, Courier, Times New Roman, Symbol, ya da benzeri görünen fontlar."
+# Yazı tipi: "Arial, Courier, Times New Roman, Symbol, ya da benzeri görünen fontlar."
 # Arial bu makinede kurulu değil; Liberation Sans Arial ile METRİK UYUMLU (aynı glif genişlikleri),
 # standart ikamesidir → basımda Arial'e denk düşer.
 plt.rcParams.update({
@@ -482,7 +482,7 @@ def figS1(args):
               ('TRvel', 'TR velocity, m/s', None),
               ('EF', 'LVEF, %', None)]
 
-    fig, axs = plt.subplots(1, 4, figsize=(7.0, 2.9))   # JASE: figür ≤7.25 inç geniş
+    fig, axs = plt.subplots(1, 4, figsize=(7.0, 2.9))   # figür ≤7.25 inç geniş
     for ax, (col, lab, _) in zip(axs, PANELS):
         data, gi = [], []
         for g in range(4):
@@ -615,7 +615,7 @@ def figS2(args):
 
 
 def central(args):
-    """Central Illustration — JASE kuralları SERT ve mevcut tasarım ikisini de ihliyordu:
+    """Özet şekil — boyut kuralları sert ve önceki tasarım ikisini de ihlal ediyordu:
       * TAM 7.25 inç geniş (2175 px @300dpi), yükseklik 3.75–8.00 inç (1125–2400 px).
         Önceki sürüm 7.90 inç genişti → kabul edilmez.
       * Figür içindeki EN KÜÇÜK yazı 10 pt. Önceki sürümde metinler 6–8 pt idi.
@@ -626,7 +626,7 @@ def central(args):
     from lifelines import KaplanMeierFitter
     from lifelines.statistics import logrank_test
 
-    FS_MIN = 10                     # JASE tabanı — hiçbir yazı bunun altına inemez
+    FS_MIN = 10                     # taban — hiçbir yazı bunun altına inemez
     FS_BODY, FS_HEAD, FS_TITLE = 10, 12, 15
 
     # Örnek vaka: --case ile değiştirilebilir. Varsayılan, makalede gösterilen test-seti
@@ -743,16 +743,16 @@ def central(args):
     axb.text(0.5, 0.5, 'Code released — every artefact reproducible from the source data',
              ha='center', va='center', fontsize=FS_HEAD, fontweight='bold', color=SEQ[3])
 
-    # ── JASE denetimi: 10 pt altı yazı ve piksel ölçüsü
+    # ── boyut denetimi: 10 pt altı yazı ve piksel ölçüsü
     small = [tx.get_fontsize() for tx in fig.findobj(matplotlib.text.Text)
              if tx.get_text().strip() and tx.get_fontsize() < FS_MIN]
     if small:
-        raise SystemExit(f"JASE İHLALİ: {len(small)} yazı 10 pt altında: {sorted(set(small))}")
+        raise SystemExit(f"BOYUT İHLALİ: {len(small)} yazı 10 pt altında: {sorted(set(small))}")
 
     os.makedirs(FIG, exist_ok=True)
     base = os.path.join(FIG, 'central_illustration')
     with plt.rc_context({'savefig.bbox': 'standard'}):
-        for ext in ('pdf', 'png', 'tif', 'jpg'):       # JASE TIFF/JPEG tercih ediyor
+        for ext in ('pdf', 'png', 'tif', 'jpg'):       # TIFF/JPEG de yazılır
             kw = {'pil_kwargs': {'quality': 95}} if ext == 'jpg' else {}
             fig.savefig(f"{base}.{ext}", dpi=300, **kw)
     from PIL import Image
@@ -761,8 +761,8 @@ def central(args):
     lr = logrank_test(T[~ADV], T[ADV], E[~ADV], E[ADV])
     print(f"→ {base}.tif / .jpg / .pdf / .png")
     print(f"   {w}×{h} px @300dpi = {w/300:.2f}×{h/300:.2f} in "
-          f"→ JASE (2175 px geniş; 1125-2400 yüksek): {'OK' if ok else 'İHLAL'}")
-    print(f"   en küçük yazı: {FS_MIN} pt (JASE tabanı) → OK")
+          f"→ boyut (2175 px geniş; 1125-2400 yüksek): {'OK' if ok else 'İHLAL'}")
+    print(f"   en küçük yazı: {FS_MIN} pt (taban) → OK")
     print(f"   ROC n={len(t)} | KM n={len(coh)}, log-rank p={lr.p_value:.1e}")
 
 
