@@ -1,0 +1,137 @@
+{
+ "uretim": "external/revision/tdi_scale_check.py",
+ "tohum": 20260901,
+ "bootstrap_tekrar": 4000,
+ "not": "POST HOC (analysis_log Ek 27). oran = görüntüden ölçülen e′ / kayıtlı septal ve lateral e′ ortalaması.",
+ "duzeyler": {
+  "L50": {
+   "mimic": {
+    "calisma": 419,
+    "oran_medyan": 0.8658,
+    "iqr": [
+     0.6953,
+     1.0625
+    ],
+    "ga": [
+     0.829,
+     0.8884
+    ],
+    "spearman": 0.3064,
+    "goruntu_e_medyan": 6.6135,
+    "kayitli_e_medyan": 8.0
+   },
+   "echoxflow": {
+    "muayene": 257,
+    "oran_medyan": 1.2567,
+    "iqr": [
+     1.1738,
+     1.3847
+    ],
+    "ga": [
+     1.2277,
+     1.2733
+    ],
+    "spearman": 0.6401,
+    "goruntu_e_medyan": 9.0,
+    "kayitli_e_medyan": 6.9605
+   },
+   "echoxflow_bolu_mimic": {
+    "bolum": 1.4515,
+    "ga": [
+     1.3975,
+     1.512
+    ]
+   }
+  },
+  "L25": {
+   "mimic": {
+    "calisma": 419,
+    "oran_medyan": 0.9365,
+    "iqr": [
+     0.7818,
+     1.1495
+    ],
+    "ga": [
+     0.9028,
+     0.9666
+    ],
+    "spearman": 0.3138,
+    "goruntu_e_medyan": 7.216,
+    "kayitli_e_medyan": 8.0
+   },
+   "echoxflow": {
+    "muayene": 257,
+    "oran_medyan": 1.462,
+    "iqr": [
+     1.3223,
+     1.6376
+    ],
+    "ga": [
+     1.4248,
+     1.4829
+    ],
+    "spearman": 0.6097,
+    "goruntu_e_medyan": 10.5,
+    "kayitli_e_medyan": 6.9605
+   },
+   "echoxflow_bolu_mimic": {
+    "bolum": 1.5612,
+    "ga": [
+     1.4885,
+     1.6261
+    ]
+   }
+  },
+  "L75": {
+   "mimic": {
+    "calisma": 419,
+    "oran_medyan": 0.8075,
+    "iqr": [
+     0.6364,
+     0.974
+    ],
+    "ga": [
+     0.7689,
+     0.8303
+    ],
+    "spearman": 0.308,
+    "goruntu_e_medyan": 6.125,
+    "kayitli_e_medyan": 8.0
+   },
+   "echoxflow": {
+    "muayene": 257,
+    "oran_medyan": 1.1065,
+    "iqr": [
+     1.0332,
+     1.217
+    ],
+    "ga": [
+     1.0958,
+     1.1216
+    ],
+    "spearman": 0.6682,
+    "goruntu_e_medyan": 7.75,
+    "kayitli_e_medyan": 6.9605
+   },
+   "echoxflow_bolu_mimic": {
+    "bolum": 1.3703,
+    "ga": [
+     1.3298,
+     1.4445
+    ]
+   }
+  }
+ },
+ "islem": {
+  "mimic_doku_goruntusu": 858,
+  "mimic_olculebilen_goruntu": 840,
+  "echoxflow_kayit": 566,
+  "echoxflow_olculebilen_kayit": 564,
+  "mimic_s_medyan": 8.83,
+  "mimic_dongu_s_medyan": 0.684,
+  "mimic_gorunen_aralik_medyan": 17.96,
+  "echoxflow_s_medyan": 8.969,
+  "echoxflow_dongu_s_medyan": 0.756,
+  "echoxflow_gorunen_aralik_medyan": 15.0
+ }
+}

@@ -1,0 +1,105 @@
+{
+ "gecerli_olcum_satiri": {
+  "pcwp": 8802,
+  "pad": 398478
+ },
+ "olcumu_olan_hasta": {
+  "pcwp": 1115,
+  "pad": 7814
+ },
+ "tum_TTE_7171": {
+  "calisma": 7171,
+  "pcwp_24saat": {
+   "calisma": 54,
+   "hasta": 29
+  },
+  "pcwp_6saat": {
+   "calisma": 33,
+   "hasta": 17
+  },
+  "pad_24saat": {
+   "calisma": 97,
+   "hasta": 48
+  },
+  "pad_6saat": {
+   "calisma": 76,
+   "hasta": 36
+  }
+ },
+ "analiz_kohortu_3065": {
+  "calisma": 3065,
+  "pcwp_24saat": {
+   "calisma": 2,
+   "hasta": 2
+  },
+  "pcwp_6saat": {
+   "calisma": 1,
+   "hasta": 1
+  },
+  "pad_24saat": {
+   "calisma": 5,
+   "hasta": 5
+  },
+  "pad_6saat": {
+   "calisma": 2,
+   "hasta": 2
+  }
+ },
+ "test_seti_438": {
+  "calisma": 438,
+  "pcwp_24saat": {
+   "calisma": 1,
+   "hasta": 1
+  },
+  "pcwp_6saat": {
+   "calisma": 1,
+   "hasta": 1
+  },
+  "pad_24saat": {
+   "calisma": 1,
+   "hasta": 1
+  },
+  "pad_6saat": {
+   "calisma": 1,
+   "hasta": 1
+  }
+ },
+ "validasyon_438": {
+  "calisma": 438,
+  "pcwp_24saat": {
+   "calisma": 0,
+   "hasta": 0
+  },
+  "pcwp_6saat": {
+   "calisma": 0,
+   "hasta": 0
+  },
+  "pad_24saat": {
+   "calisma": 1,
+   "hasta": 1
+  },
+  "pad_6saat": {
+   "calisma": 1,
+   "hasta": 1
+  }
+ },
+ "egitim_2189": {
+  "calisma": 2189,
+  "pcwp_24saat": {
+   "calisma": 1,
+   "hasta": 1
+  },
+  "pcwp_6saat": {
+   "calisma": 0,
+   "hasta": 0
+  },
+  "pad_24saat": {
+   "calisma": 3,
+   "hasta": 3
+  },
+  "pad_6saat": {
+   "calisma": 0,
+   "hasta": 0
+  }
+ }
+}

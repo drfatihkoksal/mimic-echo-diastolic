@@ -158,8 +158,13 @@ def main():
     ap.add_argument('--pretrained', type=int, default=1)
     ap.add_argument('--views', default='', help='virgüllü görünüm listesi; boş = filtre yok')
     ap.add_argument('--extra-dirs', default='', help='ek klip dizinleri (virgüllü)')
+    ap.add_argument('--stop-after', type=int, default=0,
+                    help='>0 ise yalnız ilk N epoch koşulur; öğrenme oranı çizelgesi --epochs üzerinden kalır '
+                         '(kilitli modelin durdurulduğu nokta: 9)')
+    ap.add_argument('--aux-drop', default='', help='yardımcı kayıptan çıkarılacak hedefler (virgüllü; ör. LAVi)')
     a = ap.parse_args()
     os.makedirs(a.out_dir, exist_ok=True)
+    drop_idx = [AUX_COLS.index(c) for c in a.aux_drop.split(',') if c]
     dev = 'cuda'; set_seed(a.seed)
 
     ds.GRADES[:] = LAP                                   # etiket sözlüğü: 0=normal, 1=yüksek LAP
@@ -201,6 +206,8 @@ def main():
                 break
             x = b['x'].to(dev, non_blocking=True); y = b['grade'].to(dev)
             aux = b['aux'].to(dev); am = b['aux_mask'].to(dev)
+            if drop_idx:
+                am = am.clone(); am[:, drop_idx] = 0
             with torch.autocast('cuda', dtype=torch.bfloat16):
                 ol, apr = model(x)
                 loss = corn_loss(ol.float(), y, 2) + a.aux_weight * masked_mse(apr.float(), aux, am)
@@ -223,6 +230,9 @@ def main():
             if bad >= a.patience:
                 print(f"[erken durdurma] en iyi ep{best_ep} AUROC={best}", flush=True)
                 break
+        if a.stop_after and ep + 1 >= a.stop_after:
+            print(f"[durduruldu] {a.stop_after} epoch sonra; en iyi ep{best_ep} AUROC={best}", flush=True)
+            break
 
     model.load_state_dict(torch.load(os.path.join(a.out_dir, 'best.pt'), weights_only=True))
     sv, yv, pv, _ = study_probs(model, vl, dev, a.aux_weight)

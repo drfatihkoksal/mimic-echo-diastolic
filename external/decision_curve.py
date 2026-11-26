@@ -85,9 +85,11 @@ def main():
                          'itibaren** üstün; altında "herkesi gönder" daha iyidir.').format(100*min(adv))]
         else:
             out += ['', 'Model hiçbir eşik olasılığında iki varsayılanı birden geçmiyor.']
-        r = min(rows, key=lambda x: abs(x['pt'] - 0.1286))
-        gain = r['model'] - max(r['herkes'], 0.0)
+        # DÜZELTME 2026-11-24: önceki sürüm net faydayı ızgaradaki en yakın noktadan (p_t = 0,13) alıp 0,1286'nın
+        # odds'una bölüyordu; azalma sayıları Tablo 2 ile uyuşmuyordu (576/263/470 yerine 568/256/458).
         w = 0.1286 / (1 - 0.1286)
+        r = {'model': net_benefit(y, p, 0.1286), 'herkes': prev - (1 - prev) * w}
+        gain = r['model'] - max(r['herkes'], 0.0)
         if gain > 0:
             out += [f"Kilitli eşikte (%12,9): net fayda {r['model']:+.4f}, en iyi varsayılana göre "
                     f"kazanç {gain:+.4f} — kaçırılan vaka artışı olmadan 1.000 çalışmada gereksiz "
